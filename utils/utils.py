@@ -66,6 +66,20 @@ def timeSince(since, percent):
     return "{} (remain {})".format(asMinutes(s), asMinutes(rs))
 
 
+def save_model(model, epoch, trainloss, valloss, metric, name):
+    """Saves PyTorch model."""
+    torch.save(
+        {
+            "model": model.state_dict(),
+            "epoch": epoch,
+            "train_loss": trainloss,
+            "val_loss": valloss,
+            "metric_loss": metric,
+        },
+        os.path.join("weights", name),
+    )
+
+
 def plot(dataset, n):
     plt.figure(figsize=(15, 10))
     for i in range(n):

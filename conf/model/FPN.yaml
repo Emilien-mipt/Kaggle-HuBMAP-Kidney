@@ -1,0 +1,4 @@
+# @package _group_
+name: FPN
+encoder: se_resnet50
+n_classes: 1

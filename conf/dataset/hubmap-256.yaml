@@ -1,0 +1,5 @@
+# @package _group_
+name: hubmap-256x256
+tile_size: 256
+path: ./data/hubmap-256x256/train/
+mask_path: ./data/hubmap-256x256/masks/

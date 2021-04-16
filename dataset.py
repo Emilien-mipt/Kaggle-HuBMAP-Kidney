@@ -1,6 +1,7 @@
 import os
 
 import cv2
+import hydra
 from torch.utils.data import Dataset
 
 from augmentations import (
@@ -13,12 +14,11 @@ from config import CFG
 
 
 class HuBMAPDataset(Dataset):
-    def __init__(self, df, mode="train", augment="weak", transform=True):
+    def __init__(self, cfg, df, mode="train", augment="weak", transform=True):
         ids = df.id.values
-        if CFG.data == 512:
-            self.fnames = [fname for fname in os.listdir("./data/hubmap-512x512/train") if fname.split("_")[0] in ids]
-        elif CFG.data == 256:
-            self.fnames = [fname for fname in os.listdir("./data/hubmap-256x256/train") if fname.split("_")[0] in ids]
+        self.data_path = hydra.utils.to_absolute_path(cfg.dataset.path)
+        self.mask_path = hydra.utils.to_absolute_path(cfg.dataset.mask_path)
+        self.fnames = [fname for fname in os.listdir(self.data_path) if fname.split("_")[0] in ids]
         self.mode = mode
         self.augment = augment
         self.transform = transform
@@ -28,12 +28,8 @@ class HuBMAPDataset(Dataset):
 
     def __getitem__(self, idx):
         fname = self.fnames[idx]
-        if CFG.data == 512:
-            img = cv2.cvtColor(cv2.imread(os.path.join("./data/hubmap-512x512/train", fname)), cv2.COLOR_BGR2RGB)
-            mask = cv2.imread(os.path.join("../input/hubmap-512x512/masks", fname), cv2.IMREAD_GRAYSCALE)
-        elif CFG.data == 256:
-            img = cv2.cvtColor(cv2.imread(os.path.join("./data/hubmap-256x256/train", fname)), cv2.COLOR_BGR2RGB)
-            mask = cv2.imread(os.path.join("./data/hubmap-256x256/masks", fname), cv2.IMREAD_GRAYSCALE)
+        img = cv2.cvtColor(cv2.imread(os.path.join(self.data_path, fname)), cv2.COLOR_BGR2RGB)
+        mask = cv2.imread(os.path.join(self.mask_path, fname), cv2.IMREAD_GRAYSCALE)
 
         if self.mode == "train":
             if self.transform is True:

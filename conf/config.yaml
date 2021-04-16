@@ -1,0 +1,10 @@
+defaults:
+  - dataset: hubmap-256
+  - train_params: default_train
+  - model: Unet
+  - optimizer: Adam
+  - scheduler: CosineAnnealingWarmRestarts
+  - hydra/job_logging: colorlog
+  - hydra/hydra_logging: colorlog
+
+criterion: DiceBCELoss

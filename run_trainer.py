@@ -1,95 +1,174 @@
 import os
+import time
 
+import hydra
 import pandas as pd
 import segmentation_models_pytorch as smp
 import torch
-from segmentation_models_pytorch import FPN, Unet
+from omegaconf import DictConfig
 from sklearn.model_selection import GroupKFold
-from torch.optim import Adam
-from torch.optim.lr_scheduler import (
-    CosineAnnealingLR,
-    CosineAnnealingWarmRestarts,
-    ReduceLROnPlateau,
-)
-from torch.utils.data import DataLoader
+from torch.utils.tensorboard import SummaryWriter
 
 from config import CFG
-from dataset import HuBMAPDataset
 from model import HuBMAP
+from prepare_dataloaders import prepare_train_valid_dataloader
 from train_val import train_one_epoch, valid_one_epoch
-from utils.loss_functions import DiceBCELoss, DiceLoss, Hausdorff_loss, Lovasz_loss
-from utils.utils import plot
+from utils.get_loss import get_loss
+from utils.get_optimizer import get_optimizer
+from utils.get_scheduler import get_scheduler
+from utils.utils import init_logger, plot, save_model, seed_torch
 
 
-def prepare_train_valid_dataloader(df, fold):
-    train_ids = df[~df.Folds.isin(fold)]
-    val_ids = df[df.Folds.isin(fold)]
+def run_trainer(cfg):
+    # Create dir for saving logs and weights
+    print("Creating dir for saving weights")
+    os.makedirs("weights")
+    print("Dir has been created!")
 
-    train_ds = HuBMAPDataset(train_ids, mode="train", augment="base", transform=True)
-    val_ds = HuBMAPDataset(val_ids, mode="val", augment="base", transform=True)
-    train_loader = DataLoader(train_ds, batch_size=4, pin_memory=True, shuffle=True, num_workers=4)
-    val_loader = DataLoader(val_ds, batch_size=4, pin_memory=True, shuffle=False, num_workers=4)
-    return train_loader, val_loader
+    # Define logger to save train logs
+    LOGGER = init_logger("train.log")
 
+    # Set seed
+    seed_torch(seed=cfg.train_params.seed)
 
-def main():
-    if CFG.data == 512:
-        directory_list = os.listdir("./data/hubmap-512x512/train")
-    elif CFG.data == 256:
-        directory_list = os.listdir("./data/hubmap-256x256/train")
+    # Write to tensorboard
+    tb = SummaryWriter(os.getcwd())
+
+    # Define paths
+    directory_list = os.listdir(hydra.utils.to_absolute_path(cfg.dataset.path))
+    LOGGER.info(f"Choose dataset {cfg.dataset.name}")
+    LOGGER.info(f"Tile size: {cfg.dataset.tile_size}")
+
     directory_list = [fnames.split("_")[0] for fnames in directory_list]
     dir_df = pd.DataFrame(directory_list, columns=["id"])
+    print(dir_df.shape)
 
-    if CFG.base_model == "Unet":
-        base_model = smp.Unet(CFG.encoder, encoder_weights="imagenet", classes=1)
-    if CFG.base_model == "FPN":
-        base_model = smp.FPN(CFG.encoder, encoder_weights="imagenet", classes=1)
-    print(base_model)
-
-    FOLDS = 5
+    FOLDS = cfg.train_params.n_splits
     gkf = GroupKFold(FOLDS)
     dir_df["Folds"] = 0
     for fold, (tr_idx, val_idx) in enumerate(gkf.split(dir_df, groups=dir_df[dir_df.columns[0]].values)):
         dir_df.loc[val_idx, "Folds"] = fold
+    LOGGER.info(f"Choose cross validation strategy with {cfg.train_params.n_splits} folds")
 
-    if CFG.criterion == "DiceBCELoss":
-        criterion = DiceBCELoss()
-    elif CFG.criterion == "DiceLoss":
-        criterion = DiceLoss()
-    elif CFG.criterion == "Hausdorff":
-        criterion = Hausdorff_loss()
-    elif CFG.criterion == "Lovasz":
-        criterion = Lovasz_loss()
+    if cfg.model == "Unet":
+        base_model = smp.Unet(cfg.model.encoder, encoder_weights="imagenet", classes=1)
+    if CFG.base_model == "FPN":
+        base_model = smp.FPN(cfg.model.encoder, encoder_weights="imagenet", classes=1)
+    LOGGER.info(f"Model: {cfg.model.name}")
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device(f"cuda:{cfg.train_params.gpu_id}")
+    LOGGER.info(f"Device: {cfg.train_params.gpu_id}")
 
     model = HuBMAP(base_model).to(device)
+
     # optimizer
-    optimizer = Adam(model.parameters(), lr=CFG.lr, weight_decay=CFG.weight_decay, amsgrad=False)
+    optimizer = get_optimizer(cfg, model)
+    LOGGER.info(f"Optimizer: {cfg.optimizer.type}")
 
     # scheduler setting
-    if CFG.scheduler == "CosineAnnealingWarmRestarts":
-        scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=CFG.T_0, T_mult=1, eta_min=CFG.min_lr, last_epoch=-1)
-    elif CFG.scheduler == "ReduceLROnPlateau":
-        scheduler = ReduceLROnPlateau(
-            optimizer, mode="min", factor=CFG.factor, patience=CFG.patience, verbose=True, eps=CFG.eps
-        )
-    elif CFG.scheduler == "CosineAnnealingLR":
-        scheduler = CosineAnnealingLR(optimizer, T_max=CFG.T_max, eta_min=CFG.min_lr, last_epoch=-1)
+    # scheduler = get_scheduler(cfg, optimizer)
+    scheduler = None
+    # LOGGER.info(f"Scheduler: {cfg.scheduler.type}")
 
-    for fold, (tr_idx, val_idx) in enumerate(gkf.split(dir_df, groups=dir_df[dir_df.columns[0]].values)):
+    criterion = get_loss(cfg)
+    LOGGER.info(f"Criterion: {cfg.criterion}")
+
+    # Creates a GradScaler once at the beginning of training.
+    scaler = torch.cuda.amp.GradScaler()
+
+    for fold, (train_idx, val_idx) in enumerate(gkf.split(dir_df, groups=dir_df[dir_df.columns[0]].values)):
         if fold > 1:
             break
-        trainloader, validloader = prepare_train_valid_dataloader(dir_df, [fold])
+        train_loader, valid_loader = prepare_train_valid_dataloader(cfg, dir_df, [fold])
 
-        num_epochs = CFG.epoch
-        # num_epochs = 2
-        for epoch in range(num_epochs):
-            train_one_epoch(epoch, model, device, optimizer, scheduler, trainloader, criterion)
-            with torch.no_grad():
-                valid_one_epoch(epoch, model, device, optimizer, scheduler, validloader, criterion)
-        torch.save(model.state_dict(), f"FOLD-{fold}-model.pth")
+        best_epoch = 0
+        best_dice_score = 0.0
+        count_bad_epochs = 0
+
+        LOGGER.info("-" * 50)
+        LOGGER.info(f"Start training FOLD {fold}...")
+
+        for epoch in range(cfg.train_params.epoch):
+
+            start_time = time.time()
+
+            # train
+            avg_train_loss, train_dice = train_one_epoch(
+                cfg, train_loader, model, criterion, optimizer, scaler, epoch, device, scheduler
+            )
+
+            # eval
+            avg_val_loss, val_dice_score = valid_one_epoch(valid_loader, model, criterion, device)
+
+            cur_lr = optimizer.param_groups[0]["lr"]
+
+            LOGGER.info(f"Current learning rate: {cur_lr}")
+
+            tb.add_scalar("Learning rate", cur_lr, epoch + 1)
+            tb.add_scalar("Train Loss", avg_train_loss, epoch + 1)
+            tb.add_scalar("Train Dice", train_dice, epoch + 1)
+            tb.add_scalar("Val Loss", avg_val_loss, epoch + 1)
+            tb.add_scalar("Val Dice", val_dice_score, epoch + 1)
+
+            elapsed = time.time() - start_time
+
+            LOGGER.info(
+                f"Epoch {epoch + 1} - avg_train_loss: {avg_train_loss:.4f} \
+                    avg_val_loss: {avg_val_loss:.4f}  time: {elapsed:.0f}s"
+            )
+            LOGGER.info(f"Epoch {epoch + 1} - Dice: {val_dice_score}")
+
+            # Update best score
+            if val_dice_score >= best_dice_score:
+                best_dice_score = val_dice_score
+                LOGGER.info(f"Epoch {epoch + 1} - Save Best Dice: {best_dice_score:.4f}")
+                save_model(
+                    model,
+                    epoch + 1,
+                    avg_train_loss,
+                    avg_val_loss,
+                    val_dice_score,
+                    os.path.join("weights", f"fold-{fold}_best.pt"),
+                )
+                best_epoch = epoch + 1
+                count_bad_epochs = 0
+            else:
+                count_bad_epochs += 1
+            print(count_bad_epochs)
+            LOGGER.info(f"Number of bad epochs {count_bad_epochs}")
+            # Early stopping
+            if count_bad_epochs > cfg.train_params.early_stopping:
+                LOGGER.info(
+                    f"Stop the training, since the score has not improved for "
+                    f"{cfg.train_params.early_stopping} epochs!"
+                )
+                save_model(
+                    model,
+                    epoch + 1,
+                    avg_train_loss,
+                    avg_val_loss,
+                    val_dice_score,
+                    os.path.join("weights", f"fold-{fold}_epoch{epoch + 1}_last.pth"),
+                )
+                break
+            elif epoch + 1 == cfg.train_params.epochs:
+                LOGGER.info(f"Reached the final {epoch + 1} epoch!")
+                save_model(
+                    model,
+                    epoch + 1,
+                    avg_train_loss,
+                    avg_val_loss,
+                    val_dice_score,
+                    os.path.join("weights", f"fold-{fold}_epoch{epoch + 1}_final.pth"),
+                )
+        LOGGER.info(f"AFTER TRAINING: Epoch {best_epoch}: Best Dice score: {best_dice_score:.4f}")
+        tb.close()
+
+
+@hydra.main(config_path="conf", config_name="config")
+def run(cfg: DictConfig) -> None:
+    run_trainer(cfg)
 
 
 if __name__ == "__main__":
-    main()
+    run()
