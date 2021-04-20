@@ -1,3 +1,4 @@
+import logging
 import os
 import time
 
@@ -7,32 +8,31 @@ import segmentation_models_pytorch as smp
 import torch
 from omegaconf import DictConfig
 from sklearn.model_selection import GroupKFold
+from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 
-from config import CFG
+from augmentations import get_aug
+from dataset import HuBMAPDataset
 from model import HuBMAP
-from prepare_dataloaders import prepare_train_valid_dataloader
 from train_val import train_one_epoch, valid_one_epoch
 from utils.get_loss import get_loss
 from utils.get_optimizer import get_optimizer
 from utils.get_scheduler import get_scheduler
-from utils.utils import init_logger, plot, save_model, seed_torch
+from utils.utils import save_model, save_plot, seed_torch
 
 
 def run_trainer(cfg):
     # Create dir for saving logs and weights
-    print("Creating dir for saving weights")
+    print("Creating dir for saving weights and tensorboard logs")
     os.makedirs("weights")
+    os.makedirs("logs")
     print("Dir has been created!")
 
     # Define logger to save train logs
-    LOGGER = init_logger("train.log")
+    LOGGER = logging.getLogger(__name__)
 
     # Set seed
     seed_torch(seed=cfg.train_params.seed)
-
-    # Write to tensorboard
-    tb = SummaryWriter(os.getcwd())
 
     # Define paths
     directory_list = os.listdir(hydra.utils.to_absolute_path(cfg.dataset.path))
@@ -52,7 +52,7 @@ def run_trainer(cfg):
 
     if cfg.model == "Unet":
         base_model = smp.Unet(cfg.model.encoder, encoder_weights="imagenet", classes=1)
-    if CFG.base_model == "FPN":
+    if cfg.model == "FPN":
         base_model = smp.FPN(cfg.model.encoder, encoder_weights="imagenet", classes=1)
     LOGGER.info(f"Model: {cfg.model.name}")
 
@@ -76,19 +76,68 @@ def run_trainer(cfg):
     # Creates a GradScaler once at the beginning of training.
     scaler = torch.cuda.amp.GradScaler()
 
-    for fold, (train_idx, val_idx) in enumerate(gkf.split(dir_df, groups=dir_df[dir_df.columns[0]].values)):
-        if fold > 1:
-            break
-        train_loader, valid_loader = prepare_train_valid_dataloader(cfg, dir_df, [fold])
+    # Train params
+    batch_size = cfg.train_params.batch_size
+    LOGGER.info(f"Batch size: {batch_size}")
+
+    # Train params
+    seed = cfg.train_params.seed
+    n_splits = cfg.train_params.n_splits
+    num_workers = cfg.train_params.num_workers
+    img_path = hydra.utils.to_absolute_path(cfg.dataset.path)
+    mask_path = hydra.utils.to_absolute_path(cfg.dataset.mask_path)
+    label_path = hydra.utils.to_absolute_path(cfg.labels)
+    mean = cfg.dataset.mean
+    std = cfg.dataset.std
+
+    # Start training
+    for fold in range(cfg.train_params.n_splits):
+        # Create dirs for corresponding folds
+        os.makedirs(os.path.join("weights", f"fold-{fold}"))
+        os.makedirs(os.path.join("logs", f"fold-{fold}"))
+
+        # Write to tensorboard
+        tb = SummaryWriter(os.path.join("logs", f"fold-{fold}"))
+
+        train_ds = HuBMAPDataset(
+            img_path,
+            mask_path,
+            label_path,
+            fold=fold,
+            mean=mean,
+            std=std,
+            n_splits=n_splits,
+            seed=seed,
+            train=True,
+            tfms=get_aug(),
+        )
+        train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=False, num_workers=num_workers)
+        val_ds = HuBMAPDataset(
+            img_path,
+            mask_path,
+            label_path,
+            fold=fold,
+            mean=mean,
+            std=std,
+            n_splits=n_splits,
+            seed=seed,
+            train=True,
+            tfms=get_aug(),
+        )
+        valid_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=False, num_workers=num_workers)
+
+        imgs, masks = next(iter(train_loader))
+        save_plot(imgs, masks, f"train_fold{fold}.png")
+        print(f"Saved train images for fold {fold}")
 
         best_epoch = 0
         best_dice_score = 0.0
         count_bad_epochs = 0
 
-        LOGGER.info("-" * 50)
+        LOGGER.info("-" * 100)
         LOGGER.info(f"Start training FOLD {fold}...")
 
-        for epoch in range(cfg.train_params.epoch):
+        for epoch in range(cfg.train_params.epochs):
 
             start_time = time.time()
 
@@ -98,7 +147,7 @@ def run_trainer(cfg):
             )
 
             # eval
-            avg_val_loss, val_dice_score = valid_one_epoch(valid_loader, model, criterion, device)
+            avg_val_loss, val_dice_score = valid_one_epoch(cfg, valid_loader, model, criterion, device)
 
             cur_lr = optimizer.param_groups[0]["lr"]
 
@@ -116,7 +165,7 @@ def run_trainer(cfg):
                 f"Epoch {epoch + 1} - avg_train_loss: {avg_train_loss:.4f} \
                     avg_val_loss: {avg_val_loss:.4f}  time: {elapsed:.0f}s"
             )
-            LOGGER.info(f"Epoch {epoch + 1} - Dice: {val_dice_score}")
+            LOGGER.info(f"Epoch: {epoch + 1} - Val_loss: {avg_val_loss} - Dice: {val_dice_score}")
 
             # Update best score
             if val_dice_score >= best_dice_score:
@@ -128,7 +177,7 @@ def run_trainer(cfg):
                     avg_train_loss,
                     avg_val_loss,
                     val_dice_score,
-                    os.path.join("weights", f"fold-{fold}_best.pt"),
+                    os.path.join(f"fold-{fold}", f"fold-{fold}_best.pt"),
                 )
                 best_epoch = epoch + 1
                 count_bad_epochs = 0
@@ -137,10 +186,10 @@ def run_trainer(cfg):
             print(count_bad_epochs)
             LOGGER.info(f"Number of bad epochs {count_bad_epochs}")
             # Early stopping
-            if count_bad_epochs > cfg.train_params.early_stopping:
+            if count_bad_epochs > cfg.train_params.early_stop:
                 LOGGER.info(
                     f"Stop the training, since the score has not improved for "
-                    f"{cfg.train_params.early_stopping} epochs!"
+                    f"{cfg.train_params.early_stop} epochs!"
                 )
                 save_model(
                     model,
@@ -148,7 +197,7 @@ def run_trainer(cfg):
                     avg_train_loss,
                     avg_val_loss,
                     val_dice_score,
-                    os.path.join("weights", f"fold-{fold}_epoch{epoch + 1}_last.pth"),
+                    os.path.join(f"fold-{fold}", f"fold-{fold}_best.pt"),
                 )
                 break
             elif epoch + 1 == cfg.train_params.epochs:
@@ -159,7 +208,7 @@ def run_trainer(cfg):
                     avg_train_loss,
                     avg_val_loss,
                     val_dice_score,
-                    os.path.join("weights", f"fold-{fold}_epoch{epoch + 1}_final.pth"),
+                    os.path.join(f"fold-{fold}", f"fold-{fold}_best.pt"),
                 )
         LOGGER.info(f"AFTER TRAINING: Epoch {best_epoch}: Best Dice score: {best_dice_score:.4f}")
         tb.close()

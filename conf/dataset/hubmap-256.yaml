@@ -3,3 +3,5 @@ name: hubmap-256x256
 tile_size: 256
 path: ./data/hubmap-256x256/train/
 mask_path: ./data/hubmap-256x256/masks/
+mean: [0.65459856,0.48386562,0.69428385]
+std: [0.15167958,0.23584107,0.13146145]

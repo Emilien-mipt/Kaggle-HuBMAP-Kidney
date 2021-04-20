@@ -80,11 +80,12 @@ def save_model(model, epoch, trainloss, valloss, metric, name):
     )
 
 
-def plot(dataset, n):
-    plt.figure(figsize=(15, 10))
-    for i in range(n):
-        image, mask = dataset[i]
-        plt.subplot(3, 4, 2 * i + 1)
-        plt.imshow(np.transpose((image), (1, 2, 0)))
-        plt.subplot(3, 4, 2 * i + 2)
-        plt.imshow(mask)
+def save_plot(imgs, masks, name):
+    for i, (img, mask) in enumerate(zip(imgs, masks)):
+        img = ((img.permute(1, 2, 0)) * 255.0).numpy().astype(np.uint8)
+        plt.subplot(8, 8, i + 1)
+        plt.imshow(img, vmin=0, vmax=255)
+        plt.imshow(mask.squeeze().numpy(), alpha=0.2)
+        plt.axis("off")
+        plt.subplots_adjust(wspace=None, hspace=None)
+        plt.savefig(name)

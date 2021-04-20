@@ -113,4 +113,4 @@ def valid_one_epoch(cfg, valid_loader, model, criterion, device):
                 )
             )
 
-    return current_loss.avg, current_dice
+    return current_loss.avg, current_dice.avg
