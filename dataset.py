@@ -23,6 +23,7 @@ class HuBMAPDataset(Dataset):
         ids = pd.read_csv(self.labels).id.values
         kf = KFold(n_splits=n_splits, random_state=seed, shuffle=True)
         ids = set(ids[list(kf.split(ids))[fold][0 if train else 1]])
+        print(ids)
         self.fnames = [fname for fname in os.listdir(self.data_path) if fname.split("_")[0] in ids]
         self.train = train
         self.tfms = tfms

@@ -6,7 +6,9 @@ from torch.optim.lr_scheduler import (
 
 
 def get_scheduler(cfg, optimizer):
-    if cfg.scheduler.type == "CosineAnnealingWarmRestarts":
+    if cfg.scheduler.type == "None":
+        scheduler = None
+    elif cfg.scheduler.type == "CosineAnnealingWarmRestarts":
         scheduler = CosineAnnealingWarmRestarts(
             optimizer, T_0=cfg.scheduler.T_0, T_mult=cfg.scheduler.T_1, eta_min=cfg.scheduler.eta_min, last_epoch=-1
         )

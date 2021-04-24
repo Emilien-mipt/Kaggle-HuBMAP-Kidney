@@ -3,7 +3,7 @@ defaults:
   - train_params: default_train
   - model: Unet
   - optimizer: Adam
-  - scheduler: CosineAnnealingWarmRestarts
+  - scheduler: None
   - hydra/job_logging: colorlog
   - hydra/hydra_logging: colorlog
 

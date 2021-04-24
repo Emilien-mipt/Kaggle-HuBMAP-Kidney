@@ -3,6 +3,7 @@ import os
 import time
 
 import hydra
+import numpy as np
 import pandas as pd
 import segmentation_models_pytorch as smp
 import torch
@@ -32,10 +33,12 @@ def run_trainer(cfg):
     LOGGER = logging.getLogger(__name__)
 
     # Set seed
-    seed_torch(seed=cfg.train_params.seed)
+    seed = cfg.train_params.seed
+    seed_torch(seed=seed)
 
     # Define paths
-    directory_list = os.listdir(hydra.utils.to_absolute_path(cfg.dataset.path))
+    img_path = hydra.utils.to_absolute_path(cfg.dataset.path)
+    directory_list = os.listdir(img_path)
     LOGGER.info(f"Choose dataset {cfg.dataset.name}")
     LOGGER.info(f"Tile size: {cfg.dataset.tile_size}")
 
@@ -43,18 +46,20 @@ def run_trainer(cfg):
     dir_df = pd.DataFrame(directory_list, columns=["id"])
     print(dir_df.shape)
 
-    FOLDS = cfg.train_params.n_splits
-    gkf = GroupKFold(FOLDS)
+    n_splits = cfg.train_params.n_splits
+
+    gkf = GroupKFold(n_splits)
     dir_df["Folds"] = 0
     for fold, (tr_idx, val_idx) in enumerate(gkf.split(dir_df, groups=dir_df[dir_df.columns[0]].values)):
         dir_df.loc[val_idx, "Folds"] = fold
-    LOGGER.info(f"Choose cross validation strategy with {cfg.train_params.n_splits} folds")
+    LOGGER.info(f"Choose cross validation strategy with {n_splits} folds")
 
-    if cfg.model == "Unet":
+    if cfg.model.name == "Unet":
         base_model = smp.Unet(cfg.model.encoder, encoder_weights="imagenet", classes=1)
-    if cfg.model == "FPN":
+    if cfg.model.name == "FPN":
         base_model = smp.FPN(cfg.model.encoder, encoder_weights="imagenet", classes=1)
     LOGGER.info(f"Model: {cfg.model.name}")
+    LOGGER.info(f"Encoder: {cfg.model.encoder}")
 
     device = torch.device(f"cuda:{cfg.train_params.gpu_id}")
     LOGGER.info(f"Device: {cfg.train_params.gpu_id}")
@@ -66,9 +71,8 @@ def run_trainer(cfg):
     LOGGER.info(f"Optimizer: {cfg.optimizer.type}")
 
     # scheduler setting
-    # scheduler = get_scheduler(cfg, optimizer)
-    scheduler = None
-    # LOGGER.info(f"Scheduler: {cfg.scheduler.type}")
+    scheduler = get_scheduler(cfg, optimizer)
+    LOGGER.info(f"Scheduler: {cfg.scheduler.type}")
 
     criterion = get_loss(cfg)
     LOGGER.info(f"Criterion: {cfg.criterion}")
@@ -81,17 +85,14 @@ def run_trainer(cfg):
     LOGGER.info(f"Batch size: {batch_size}")
 
     # Train params
-    seed = cfg.train_params.seed
-    n_splits = cfg.train_params.n_splits
     num_workers = cfg.train_params.num_workers
-    img_path = hydra.utils.to_absolute_path(cfg.dataset.path)
     mask_path = hydra.utils.to_absolute_path(cfg.dataset.mask_path)
     label_path = hydra.utils.to_absolute_path(cfg.labels)
-    mean = cfg.dataset.mean
-    std = cfg.dataset.std
+    mean = np.array(cfg.dataset.mean)
+    std = np.array(cfg.dataset.std)
 
     # Start training
-    for fold in range(cfg.train_params.n_splits):
+    for fold in range(n_splits):
         # Create dirs for corresponding folds
         os.makedirs(os.path.join("weights", f"fold-{fold}"))
         os.makedirs(os.path.join("logs", f"fold-{fold}"))
@@ -121,13 +122,11 @@ def run_trainer(cfg):
             std=std,
             n_splits=n_splits,
             seed=seed,
-            train=True,
-            tfms=get_aug(),
+            train=False,
         )
         valid_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=False, num_workers=num_workers)
 
-        imgs, masks = next(iter(train_loader))
-        save_plot(imgs, masks, f"train_fold{fold}.png")
+        save_plot(train_ds, 10, mean, std, f"train_fold{fold}.png")
         print(f"Saved train images for fold {fold}")
 
         best_epoch = 0
@@ -197,7 +196,7 @@ def run_trainer(cfg):
                     avg_train_loss,
                     avg_val_loss,
                     val_dice_score,
-                    os.path.join(f"fold-{fold}", f"fold-{fold}_best.pt"),
+                    os.path.join(f"fold-{fold}", f"fold-{fold}_last.pt"),
                 )
                 break
             elif epoch + 1 == cfg.train_params.epochs:
@@ -208,7 +207,7 @@ def run_trainer(cfg):
                     avg_train_loss,
                     avg_val_loss,
                     val_dice_score,
-                    os.path.join(f"fold-{fold}", f"fold-{fold}_best.pt"),
+                    os.path.join(f"fold-{fold}", f"fold-{fold}_final.pt"),
                 )
         LOGGER.info(f"AFTER TRAINING: Epoch {best_epoch}: Best Dice score: {best_dice_score:.4f}")
         tb.close()

@@ -1,8 +1,6 @@
 import torch.nn as nn
 from torch.nn import functional as F
 
-from config import CFG
-
 from .losses_pytorch.hausdorff import HausdorffDTLoss
 from .losses_pytorch.lovasz_loss import LovaszSoftmax
 
@@ -26,7 +24,7 @@ class DiceLoss(nn.Module):
     def __init__(self, weight=None, size_average=True):
         super().__init__()
 
-    def forward(self, inputs, targets, smooth=CFG.smoothing):
+    def forward(self, inputs, targets, smooth=1):
         # comment out if your model contains a sigmoid or equivalent activation layer
         inputs = F.sigmoid(inputs)
 
@@ -45,7 +43,7 @@ class DiceBCELoss(nn.Module):
     def __init__(self, weight=None, size_average=True):
         super().__init__()
 
-    def forward(self, inputs, targets, smooth=CFG.smoothing):
+    def forward(self, inputs, targets, smooth=1):
         # flatten label and prediction tensors
         inputs = inputs.view(-1)
         targets = targets.view(-1)
