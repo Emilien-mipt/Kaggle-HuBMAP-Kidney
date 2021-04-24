@@ -1,0 +1,4 @@
+# @package _group_
+name: Unet
+encoder: timm-efficientnet-b4
+n_classes: 1

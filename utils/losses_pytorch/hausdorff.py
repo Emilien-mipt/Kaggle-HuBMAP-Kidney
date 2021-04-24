@@ -22,7 +22,7 @@ class HausdorffDTLoss(nn.Module):
         self.alpha = alpha
 
     @torch.no_grad()
-    def distance_field(self, img: np.ndarray) -> np.ndarray:
+    def distance_field(self, img):
         field = np.zeros_like(img)
 
         for batch in range(len(img)):
@@ -38,7 +38,7 @@ class HausdorffDTLoss(nn.Module):
 
         return field
 
-    def forward(self, pred: torch.Tensor, target: torch.Tensor, debug: bool = False) -> torch.Tensor:
+    def forward(self, pred, target, debug=False):
         """
         Uses one binary channel: 1 - fg, 0 - bg
         pred: (b, 1, x, y, z) or (b, 1, x, y)

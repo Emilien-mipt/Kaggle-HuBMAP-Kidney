@@ -1,0 +1,489 @@
+[2021-04-23 15:31:03,972][__main__][INFO] - Choose dataset hubmap-256x256
+[2021-04-23 15:31:03,972][__main__][INFO] - Tile size: 256
+[2021-04-23 15:31:03,981][__main__][INFO] - Choose cross validation strategy with 5 folds
+[2021-04-23 15:31:04,299][__main__][INFO] - Model: Unet
+[2021-04-23 15:31:04,299][__main__][INFO] - Encoder: resnet34
+[2021-04-23 15:31:04,300][__main__][INFO] - Device: 0
+[2021-04-23 15:31:06,465][__main__][INFO] - Optimizer: Adam
+[2021-04-23 15:31:06,465][__main__][INFO] - Scheduler: None
+[2021-04-23 15:31:06,465][__main__][INFO] - Criterion: BCELoss
+[2021-04-23 15:31:06,465][__main__][INFO] - Batch size: 64
+[2021-04-23 15:31:09,571][__main__][INFO] - ----------------------------------------------------------------------------------------------------
+[2021-04-23 15:31:09,572][__main__][INFO] - Start training FOLD 0...
+[2021-04-23 15:31:52,539][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:31:52,540][__main__][INFO] - Epoch 1 - avg_train_loss: 0.5393                     avg_val_loss: 0.3527  time: 43s
+[2021-04-23 15:31:52,540][__main__][INFO] - Epoch: 1 - Val_loss: 0.352726073241114 - Dice: 0.28495529294013977
+[2021-04-23 15:31:52,540][__main__][INFO] - Epoch 1 - Save Best Dice: 0.2850
+[2021-04-23 15:31:52,645][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:32:34,703][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:32:34,704][__main__][INFO] - Epoch 2 - avg_train_loss: 0.2709                     avg_val_loss: 0.2090  time: 42s
+[2021-04-23 15:32:34,704][__main__][INFO] - Epoch: 2 - Val_loss: 0.20896961006087875 - Dice: 0.7910363674163818
+[2021-04-23 15:32:34,704][__main__][INFO] - Epoch 2 - Save Best Dice: 0.7910
+[2021-04-23 15:32:34,829][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:33:17,407][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:33:17,407][__main__][INFO] - Epoch 3 - avg_train_loss: 0.1731                     avg_val_loss: 0.1419  time: 43s
+[2021-04-23 15:33:17,408][__main__][INFO] - Epoch: 3 - Val_loss: 0.14189840540214999 - Dice: 0.8496688604354858
+[2021-04-23 15:33:17,408][__main__][INFO] - Epoch 3 - Save Best Dice: 0.8497
+[2021-04-23 15:33:17,559][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:33:59,976][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:33:59,976][__main__][INFO] - Epoch 4 - avg_train_loss: 0.1226                     avg_val_loss: 0.1040  time: 42s
+[2021-04-23 15:33:59,977][__main__][INFO] - Epoch: 4 - Val_loss: 0.10399922732282524 - Dice: 0.8752960562705994
+[2021-04-23 15:33:59,977][__main__][INFO] - Epoch 4 - Save Best Dice: 0.8753
+[2021-04-23 15:34:00,123][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:34:42,709][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:34:42,709][__main__][INFO] - Epoch 5 - avg_train_loss: 0.0930                     avg_val_loss: 0.0788  time: 43s
+[2021-04-23 15:34:42,709][__main__][INFO] - Epoch: 5 - Val_loss: 0.07881428689213853 - Dice: 0.891285240650177
+[2021-04-23 15:34:42,710][__main__][INFO] - Epoch 5 - Save Best Dice: 0.8913
+[2021-04-23 15:34:42,834][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:35:25,334][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:35:25,335][__main__][INFO] - Epoch 6 - avg_train_loss: 0.0734                     avg_val_loss: 0.0643  time: 43s
+[2021-04-23 15:35:25,335][__main__][INFO] - Epoch: 6 - Val_loss: 0.06429485328233421 - Dice: 0.9019654393196106
+[2021-04-23 15:35:25,335][__main__][INFO] - Epoch 6 - Save Best Dice: 0.9020
+[2021-04-23 15:35:25,486][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:36:08,188][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:36:08,188][__main__][INFO] - Epoch 7 - avg_train_loss: 0.0600                     avg_val_loss: 0.0518  time: 43s
+[2021-04-23 15:36:08,188][__main__][INFO] - Epoch: 7 - Val_loss: 0.05179547156071543 - Dice: 0.9067069292068481
+[2021-04-23 15:36:08,188][__main__][INFO] - Epoch 7 - Save Best Dice: 0.9067
+[2021-04-23 15:36:08,338][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:36:51,100][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:36:51,100][__main__][INFO] - Epoch 8 - avg_train_loss: 0.0501                     avg_val_loss: 0.0441  time: 43s
+[2021-04-23 15:36:51,101][__main__][INFO] - Epoch: 8 - Val_loss: 0.044081835212869264 - Dice: 0.9112833142280579
+[2021-04-23 15:36:51,101][__main__][INFO] - Epoch 8 - Save Best Dice: 0.9113
+[2021-04-23 15:36:51,248][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:37:34,017][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:37:34,017][__main__][INFO] - Epoch 9 - avg_train_loss: 0.0434                     avg_val_loss: 0.0376  time: 43s
+[2021-04-23 15:37:34,018][__main__][INFO] - Epoch: 9 - Val_loss: 0.03761296754506365 - Dice: 0.9140779972076416
+[2021-04-23 15:37:34,018][__main__][INFO] - Epoch 9 - Save Best Dice: 0.9141
+[2021-04-23 15:37:34,170][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:38:17,077][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:38:17,077][__main__][INFO] - Epoch 10 - avg_train_loss: 0.0378                     avg_val_loss: 0.0337  time: 43s
+[2021-04-23 15:38:17,078][__main__][INFO] - Epoch: 10 - Val_loss: 0.0336663979681293 - Dice: 0.9163163304328918
+[2021-04-23 15:38:17,078][__main__][INFO] - Epoch 10 - Save Best Dice: 0.9163
+[2021-04-23 15:38:17,228][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:38:59,987][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:38:59,987][__main__][INFO] - Epoch 11 - avg_train_loss: 0.0340                     avg_val_loss: 0.0296  time: 43s
+[2021-04-23 15:38:59,987][__main__][INFO] - Epoch: 11 - Val_loss: 0.02960148866302404 - Dice: 0.9193325042724609
+[2021-04-23 15:38:59,987][__main__][INFO] - Epoch 11 - Save Best Dice: 0.9193
+[2021-04-23 15:39:00,138][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:39:43,431][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:39:43,431][__main__][INFO] - Epoch 12 - avg_train_loss: 0.0303                     avg_val_loss: 0.0270  time: 43s
+[2021-04-23 15:39:43,432][__main__][INFO] - Epoch: 12 - Val_loss: 0.027042898809041212 - Dice: 0.9222212433815002
+[2021-04-23 15:39:43,432][__main__][INFO] - Epoch 12 - Save Best Dice: 0.9222
+[2021-04-23 15:39:43,580][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:40:26,271][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:40:26,271][__main__][INFO] - Epoch 13 - avg_train_loss: 0.0277                     avg_val_loss: 0.0247  time: 43s
+[2021-04-23 15:40:26,272][__main__][INFO] - Epoch: 13 - Val_loss: 0.02472818380399565 - Dice: 0.9214494824409485
+[2021-04-23 15:40:26,272][__main__][INFO] - Number of bad epochs 1
+[2021-04-23 15:41:09,390][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:41:09,390][__main__][INFO] - Epoch 14 - avg_train_loss: 0.0254                     avg_val_loss: 0.0229  time: 43s
+[2021-04-23 15:41:09,390][__main__][INFO] - Epoch: 14 - Val_loss: 0.022932724012576754 - Dice: 0.9236153960227966
+[2021-04-23 15:41:09,390][__main__][INFO] - Epoch 14 - Save Best Dice: 0.9236
+[2021-04-23 15:41:09,539][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:41:52,299][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:41:52,300][__main__][INFO] - Epoch 15 - avg_train_loss: 0.0239                     avg_val_loss: 0.0211  time: 43s
+[2021-04-23 15:41:52,300][__main__][INFO] - Epoch: 15 - Val_loss: 0.02110172036342585 - Dice: 0.9268422722816467
+[2021-04-23 15:41:52,301][__main__][INFO] - Epoch 15 - Save Best Dice: 0.9268
+[2021-04-23 15:41:52,450][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:42:35,321][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:42:35,322][__main__][INFO] - Epoch 16 - avg_train_loss: 0.0222                     avg_val_loss: 0.0207  time: 43s
+[2021-04-23 15:42:35,322][__main__][INFO] - Epoch: 16 - Val_loss: 0.020737068101426764 - Dice: 0.9230565428733826
+[2021-04-23 15:42:35,322][__main__][INFO] - Number of bad epochs 1
+[2021-04-23 15:43:18,831][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:43:18,832][__main__][INFO] - Epoch 17 - avg_train_loss: 0.0213                     avg_val_loss: 0.0194  time: 44s
+[2021-04-23 15:43:18,832][__main__][INFO] - Epoch: 17 - Val_loss: 0.01935038462599468 - Dice: 0.9253233075141907
+[2021-04-23 15:43:18,832][__main__][INFO] - Number of bad epochs 2
+[2021-04-23 15:44:02,067][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:44:02,067][__main__][INFO] - Epoch 18 - avg_train_loss: 0.0201                     avg_val_loss: 0.0185  time: 43s
+[2021-04-23 15:44:02,067][__main__][INFO] - Epoch: 18 - Val_loss: 0.01846719749796031 - Dice: 0.9244331121444702
+[2021-04-23 15:44:02,068][__main__][INFO] - Number of bad epochs 3
+[2021-04-23 15:44:45,360][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:44:45,361][__main__][INFO] - Epoch 19 - avg_train_loss: 0.0194                     avg_val_loss: 0.0185  time: 43s
+[2021-04-23 15:44:45,361][__main__][INFO] - Epoch: 19 - Val_loss: 0.01847836634134827 - Dice: 0.9171033501625061
+[2021-04-23 15:44:45,361][__main__][INFO] - Number of bad epochs 4
+[2021-04-23 15:45:28,726][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:45:28,727][__main__][INFO] - Epoch 20 - avg_train_loss: 0.0186                     avg_val_loss: 0.0171  time: 43s
+[2021-04-23 15:45:28,727][__main__][INFO] - Epoch: 20 - Val_loss: 0.01706660187068447 - Dice: 0.9266234636306763
+[2021-04-23 15:45:28,727][__main__][INFO] - Number of bad epochs 5
+[2021-04-23 15:46:12,018][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:46:12,018][__main__][INFO] - Epoch 21 - avg_train_loss: 0.0176                     avg_val_loss: 0.0165  time: 43s
+[2021-04-23 15:46:12,018][__main__][INFO] - Epoch: 21 - Val_loss: 0.016523724279586396 - Dice: 0.9272339344024658
+[2021-04-23 15:46:12,019][__main__][INFO] - Epoch 21 - Save Best Dice: 0.9272
+[2021-04-23 15:46:12,168][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:46:55,167][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:46:55,168][__main__][INFO] - Epoch 22 - avg_train_loss: 0.0173                     avg_val_loss: 0.0166  time: 43s
+[2021-04-23 15:46:55,168][__main__][INFO] - Epoch: 22 - Val_loss: 0.016615358725115284 - Dice: 0.9235205054283142
+[2021-04-23 15:46:55,168][__main__][INFO] - Number of bad epochs 1
+[2021-04-23 15:47:37,957][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:47:37,958][__main__][INFO] - Epoch 23 - avg_train_loss: 0.0166                     avg_val_loss: 0.0151  time: 43s
+[2021-04-23 15:47:37,958][__main__][INFO] - Epoch: 23 - Val_loss: 0.015139013432415586 - Dice: 0.9292479753494263
+[2021-04-23 15:47:37,958][__main__][INFO] - Epoch 23 - Save Best Dice: 0.9292
+[2021-04-23 15:47:38,111][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:48:20,738][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:48:20,739][__main__][INFO] - Epoch 24 - avg_train_loss: 0.0159                     avg_val_loss: 0.0152  time: 43s
+[2021-04-23 15:48:20,739][__main__][INFO] - Epoch: 24 - Val_loss: 0.015179896052346457 - Dice: 0.9269780516624451
+[2021-04-23 15:48:20,740][__main__][INFO] - Number of bad epochs 1
+[2021-04-23 15:49:04,126][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:49:04,126][__main__][INFO] - Epoch 25 - avg_train_loss: 0.0155                     avg_val_loss: 0.0147  time: 43s
+[2021-04-23 15:49:04,127][__main__][INFO] - Epoch: 25 - Val_loss: 0.014741918796570457 - Dice: 0.927628219127655
+[2021-04-23 15:49:04,127][__main__][INFO] - Number of bad epochs 2
+[2021-04-23 15:49:47,698][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:49:47,699][__main__][INFO] - Epoch 26 - avg_train_loss: 0.0148                     avg_val_loss: 0.0144  time: 44s
+[2021-04-23 15:49:47,699][__main__][INFO] - Epoch: 26 - Val_loss: 0.014411928956326677 - Dice: 0.9296395778656006
+[2021-04-23 15:49:47,699][__main__][INFO] - Epoch 26 - Save Best Dice: 0.9296
+[2021-04-23 15:49:47,848][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:50:32,021][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:50:32,022][__main__][INFO] - Epoch 27 - avg_train_loss: 0.0146                     avg_val_loss: 0.0145  time: 44s
+[2021-04-23 15:50:32,022][__main__][INFO] - Epoch: 27 - Val_loss: 0.014512813712783795 - Dice: 0.9275540113449097
+[2021-04-23 15:50:32,022][__main__][INFO] - Number of bad epochs 1
+[2021-04-23 15:51:17,004][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:51:17,004][__main__][INFO] - Epoch 28 - avg_train_loss: 0.0143                     avg_val_loss: 0.0145  time: 45s
+[2021-04-23 15:51:17,005][__main__][INFO] - Epoch: 28 - Val_loss: 0.014453465855170284 - Dice: 0.9261812567710876
+[2021-04-23 15:51:17,005][__main__][INFO] - Number of bad epochs 2
+[2021-04-23 15:52:01,426][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:52:01,426][__main__][INFO] - Epoch 29 - avg_train_loss: 0.0142                     avg_val_loss: 0.0140  time: 44s
+[2021-04-23 15:52:01,426][__main__][INFO] - Epoch: 29 - Val_loss: 0.013964595735990373 - Dice: 0.9277295470237732
+[2021-04-23 15:52:01,427][__main__][INFO] - Number of bad epochs 3
+[2021-04-23 15:52:46,222][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:52:46,223][__main__][INFO] - Epoch 30 - avg_train_loss: 0.0142                     avg_val_loss: 0.0133  time: 45s
+[2021-04-23 15:52:46,223][__main__][INFO] - Epoch: 30 - Val_loss: 0.013295815042664657 - Dice: 0.9295631051063538
+[2021-04-23 15:52:46,223][__main__][INFO] - Number of bad epochs 4
+[2021-04-23 15:53:30,566][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:53:30,567][__main__][INFO] - Epoch 31 - avg_train_loss: 0.0135                     avg_val_loss: 0.0134  time: 44s
+[2021-04-23 15:53:30,567][__main__][INFO] - Epoch: 31 - Val_loss: 0.013399533070530274 - Dice: 0.927598774433136
+[2021-04-23 15:53:30,567][__main__][INFO] - Number of bad epochs 5
+[2021-04-23 15:54:14,802][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:54:14,803][__main__][INFO] - Epoch 32 - avg_train_loss: 0.0133                     avg_val_loss: 0.0132  time: 44s
+[2021-04-23 15:54:14,803][__main__][INFO] - Epoch: 32 - Val_loss: 0.013203368246574048 - Dice: 0.9289124011993408
+[2021-04-23 15:54:14,803][__main__][INFO] - Number of bad epochs 6
+[2021-04-23 15:54:58,960][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:54:58,960][__main__][INFO] - Epoch 33 - avg_train_loss: 0.0129                     avg_val_loss: 0.0130  time: 44s
+[2021-04-23 15:54:58,960][__main__][INFO] - Epoch: 33 - Val_loss: 0.012997437763640929 - Dice: 0.929351806640625
+[2021-04-23 15:54:58,961][__main__][INFO] - Number of bad epochs 7
+[2021-04-23 15:55:42,969][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:55:42,969][__main__][INFO] - Epoch 34 - avg_train_loss: 0.0128                     avg_val_loss: 0.0127  time: 44s
+[2021-04-23 15:55:42,969][__main__][INFO] - Epoch: 34 - Val_loss: 0.012653088394140628 - Dice: 0.9317663311958313
+[2021-04-23 15:55:42,969][__main__][INFO] - Epoch 34 - Save Best Dice: 0.9318
+[2021-04-23 15:55:43,119][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:56:27,878][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:56:27,879][__main__][INFO] - Epoch 35 - avg_train_loss: 0.0127                     avg_val_loss: 0.0127  time: 45s
+[2021-04-23 15:56:27,879][__main__][INFO] - Epoch: 35 - Val_loss: 0.012702346012819951 - Dice: 0.9285712838172913
+[2021-04-23 15:56:27,879][__main__][INFO] - Number of bad epochs 1
+[2021-04-23 15:57:12,473][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:57:12,473][__main__][INFO] - Epoch 36 - avg_train_loss: 0.0126                     avg_val_loss: 0.0128  time: 45s
+[2021-04-23 15:57:12,474][__main__][INFO] - Epoch: 36 - Val_loss: 0.012772303127482459 - Dice: 0.9286388754844666
+[2021-04-23 15:57:12,474][__main__][INFO] - Number of bad epochs 2
+[2021-04-23 15:57:57,022][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:57:57,023][__main__][INFO] - Epoch 37 - avg_train_loss: 0.0126                     avg_val_loss: 0.0121  time: 45s
+[2021-04-23 15:57:57,023][__main__][INFO] - Epoch: 37 - Val_loss: 0.012102161458782365 - Dice: 0.9319852590560913
+[2021-04-23 15:57:57,023][__main__][INFO] - Epoch 37 - Save Best Dice: 0.9320
+[2021-04-23 15:57:57,173][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 15:58:41,655][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:58:41,655][__main__][INFO] - Epoch 38 - avg_train_loss: 0.0125                     avg_val_loss: 0.0127  time: 44s
+[2021-04-23 15:58:41,655][__main__][INFO] - Epoch: 38 - Val_loss: 0.012685420725438464 - Dice: 0.9297320246696472
+[2021-04-23 15:58:41,656][__main__][INFO] - Number of bad epochs 1
+[2021-04-23 15:59:26,548][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 15:59:26,549][__main__][INFO] - Epoch 39 - avg_train_loss: 0.0119                     avg_val_loss: 0.0129  time: 45s
+[2021-04-23 15:59:26,549][__main__][INFO] - Epoch: 39 - Val_loss: 0.0128963773452382 - Dice: 0.9288141131401062
+[2021-04-23 15:59:26,549][__main__][INFO] - Number of bad epochs 2
+[2021-04-23 16:00:10,657][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:00:10,658][__main__][INFO] - Epoch 40 - avg_train_loss: 0.0121                     avg_val_loss: 0.0123  time: 44s
+[2021-04-23 16:00:10,658][__main__][INFO] - Epoch: 40 - Val_loss: 0.012268682696561718 - Dice: 0.9311803579330444
+[2021-04-23 16:00:10,658][__main__][INFO] - Number of bad epochs 3
+[2021-04-23 16:00:55,916][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:00:55,917][__main__][INFO] - Epoch 41 - avg_train_loss: 0.0120                     avg_val_loss: 0.0140  time: 45s
+[2021-04-23 16:00:55,917][__main__][INFO] - Epoch: 41 - Val_loss: 0.013990840546075424 - Dice: 0.9227219223976135
+[2021-04-23 16:00:55,917][__main__][INFO] - Number of bad epochs 4
+[2021-04-23 16:01:40,712][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:01:40,713][__main__][INFO] - Epoch 42 - avg_train_loss: 0.0118                     avg_val_loss: 0.0123  time: 45s
+[2021-04-23 16:01:40,713][__main__][INFO] - Epoch: 42 - Val_loss: 0.012282963844961556 - Dice: 0.9302155375480652
+[2021-04-23 16:01:40,713][__main__][INFO] - Number of bad epochs 5
+[2021-04-23 16:02:25,562][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:02:25,563][__main__][INFO] - Epoch 43 - avg_train_loss: 0.0115                     avg_val_loss: 0.0116  time: 45s
+[2021-04-23 16:02:25,563][__main__][INFO] - Epoch: 43 - Val_loss: 0.011625091690832198 - Dice: 0.9323184490203857
+[2021-04-23 16:02:25,563][__main__][INFO] - Epoch 43 - Save Best Dice: 0.9323
+[2021-04-23 16:02:25,714][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 16:03:10,099][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:03:10,099][__main__][INFO] - Epoch 44 - avg_train_loss: 0.0115                     avg_val_loss: 0.0127  time: 44s
+[2021-04-23 16:03:10,100][__main__][INFO] - Epoch: 44 - Val_loss: 0.012653547485625773 - Dice: 0.9267395734786987
+[2021-04-23 16:03:10,100][__main__][INFO] - Number of bad epochs 1
+[2021-04-23 16:03:54,768][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:03:54,768][__main__][INFO] - Epoch 45 - avg_train_loss: 0.0113                     avg_val_loss: 0.0124  time: 45s
+[2021-04-23 16:03:54,768][__main__][INFO] - Epoch: 45 - Val_loss: 0.012403813297462523 - Dice: 0.9266216158866882
+[2021-04-23 16:03:54,769][__main__][INFO] - Number of bad epochs 2
+[2021-04-23 16:04:39,596][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:04:39,597][__main__][INFO] - Epoch 46 - avg_train_loss: 0.0113                     avg_val_loss: 0.0125  time: 45s
+[2021-04-23 16:04:39,597][__main__][INFO] - Epoch: 46 - Val_loss: 0.012455227666876125 - Dice: 0.9255545139312744
+[2021-04-23 16:04:39,597][__main__][INFO] - Number of bad epochs 3
+[2021-04-23 16:05:25,118][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:05:25,119][__main__][INFO] - Epoch 47 - avg_train_loss: 0.0114                     avg_val_loss: 0.0123  time: 46s
+[2021-04-23 16:05:25,119][__main__][INFO] - Epoch: 47 - Val_loss: 0.012283023782355252 - Dice: 0.9311860799789429
+[2021-04-23 16:05:25,119][__main__][INFO] - Number of bad epochs 4
+[2021-04-23 16:06:10,636][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:06:10,636][__main__][INFO] - Epoch 48 - avg_train_loss: 0.0116                     avg_val_loss: 0.0139  time: 46s
+[2021-04-23 16:06:10,637][__main__][INFO] - Epoch: 48 - Val_loss: 0.013949814409803805 - Dice: 0.924014687538147
+[2021-04-23 16:06:10,637][__main__][INFO] - Number of bad epochs 5
+[2021-04-23 16:06:56,156][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:06:56,157][__main__][INFO] - Epoch 49 - avg_train_loss: 0.0111                     avg_val_loss: 0.0129  time: 46s
+[2021-04-23 16:06:56,157][__main__][INFO] - Epoch: 49 - Val_loss: 0.01293764425179542 - Dice: 0.9252249598503113
+[2021-04-23 16:06:56,157][__main__][INFO] - Number of bad epochs 6
+[2021-04-23 16:07:41,274][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:07:41,274][__main__][INFO] - Epoch 50 - avg_train_loss: 0.0107                     avg_val_loss: 0.0119  time: 45s
+[2021-04-23 16:07:41,275][__main__][INFO] - Epoch: 50 - Val_loss: 0.011923884876053687 - Dice: 0.9301698803901672
+[2021-04-23 16:07:41,275][__main__][INFO] - Number of bad epochs 7
+[2021-04-23 16:08:26,399][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:08:26,400][__main__][INFO] - Epoch 51 - avg_train_loss: 0.0109                     avg_val_loss: 0.0122  time: 45s
+[2021-04-23 16:08:26,400][__main__][INFO] - Epoch: 51 - Val_loss: 0.012174935585084423 - Dice: 0.9281411170959473
+[2021-04-23 16:08:26,400][__main__][INFO] - Number of bad epochs 8
+[2021-04-23 16:09:12,944][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:09:12,945][__main__][INFO] - Epoch 52 - avg_train_loss: 0.0109                     avg_val_loss: 0.0121  time: 47s
+[2021-04-23 16:09:12,945][__main__][INFO] - Epoch: 52 - Val_loss: 0.012146534781023186 - Dice: 0.9282717704772949
+[2021-04-23 16:09:12,945][__main__][INFO] - Number of bad epochs 9
+[2021-04-23 16:09:57,203][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:09:57,204][__main__][INFO] - Epoch 53 - avg_train_loss: 0.0109                     avg_val_loss: 0.0113  time: 44s
+[2021-04-23 16:09:57,204][__main__][INFO] - Epoch: 53 - Val_loss: 0.011321674789484572 - Dice: 0.9318998456001282
+[2021-04-23 16:09:57,204][__main__][INFO] - Number of bad epochs 10
+[2021-04-23 16:10:42,452][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:10:42,452][__main__][INFO] - Epoch 54 - avg_train_loss: 0.0104                     avg_val_loss: 0.0130  time: 45s
+[2021-04-23 16:10:42,452][__main__][INFO] - Epoch: 54 - Val_loss: 0.012982212450710972 - Dice: 0.9236607551574707
+[2021-04-23 16:10:42,453][__main__][INFO] - Number of bad epochs 11
+[2021-04-23 16:10:42,453][__main__][INFO] - Stop the training, since the score has not improved for 10 epochs!
+[2021-04-23 16:10:42,557][__main__][INFO] - AFTER TRAINING: Epoch 43: Best Dice score: 0.9323
+[2021-04-23 16:10:45,667][__main__][INFO] - ----------------------------------------------------------------------------------------------------
+[2021-04-23 16:10:45,668][__main__][INFO] - Start training FOLD 1...
+[2021-04-23 16:11:30,297][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:11:30,298][__main__][INFO] - Epoch 1 - avg_train_loss: 0.0122                     avg_val_loss: 0.0070  time: 45s
+[2021-04-23 16:11:30,298][__main__][INFO] - Epoch: 1 - Val_loss: 0.007010602571216284 - Dice: 0.9456677436828613
+[2021-04-23 16:11:30,298][__main__][INFO] - Epoch 1 - Save Best Dice: 0.9457
+[2021-04-23 16:11:30,404][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 16:12:14,775][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:12:14,776][__main__][INFO] - Epoch 2 - avg_train_loss: 0.0121                     avg_val_loss: 0.0077  time: 44s
+[2021-04-23 16:12:14,776][__main__][INFO] - Epoch: 2 - Val_loss: 0.0076678399873130465 - Dice: 0.9401695728302002
+[2021-04-23 16:12:14,776][__main__][INFO] - Number of bad epochs 1
+[2021-04-23 16:12:59,376][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:12:59,376][__main__][INFO] - Epoch 3 - avg_train_loss: 0.0118                     avg_val_loss: 0.0076  time: 45s
+[2021-04-23 16:12:59,376][__main__][INFO] - Epoch: 3 - Val_loss: 0.00755665158378143 - Dice: 0.9402155876159668
+[2021-04-23 16:12:59,377][__main__][INFO] - Number of bad epochs 2
+[2021-04-23 16:13:44,603][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:13:44,604][__main__][INFO] - Epoch 4 - avg_train_loss: 0.0121                     avg_val_loss: 0.0083  time: 45s
+[2021-04-23 16:13:44,604][__main__][INFO] - Epoch: 4 - Val_loss: 0.008294452255701317 - Dice: 0.9370877146720886
+[2021-04-23 16:13:44,604][__main__][INFO] - Number of bad epochs 3
+[2021-04-23 16:14:29,944][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:14:29,944][__main__][INFO] - Epoch 5 - avg_train_loss: 0.0117                     avg_val_loss: 0.0082  time: 45s
+[2021-04-23 16:14:29,944][__main__][INFO] - Epoch: 5 - Val_loss: 0.00820849515935954 - Dice: 0.937397837638855
+[2021-04-23 16:14:29,945][__main__][INFO] - Number of bad epochs 4
+[2021-04-23 16:15:14,631][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:15:14,632][__main__][INFO] - Epoch 6 - avg_train_loss: 0.0115                     avg_val_loss: 0.0087  time: 45s
+[2021-04-23 16:15:14,632][__main__][INFO] - Epoch: 6 - Val_loss: 0.00873877862650974 - Dice: 0.9338288307189941
+[2021-04-23 16:15:14,632][__main__][INFO] - Number of bad epochs 5
+[2021-04-23 16:15:59,114][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:15:59,114][__main__][INFO] - Epoch 7 - avg_train_loss: 0.0113                     avg_val_loss: 0.0080  time: 44s
+[2021-04-23 16:15:59,114][__main__][INFO] - Epoch: 7 - Val_loss: 0.007991597783185688 - Dice: 0.9411798715591431
+[2021-04-23 16:15:59,115][__main__][INFO] - Number of bad epochs 6
+[2021-04-23 16:16:43,700][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:16:43,700][__main__][INFO] - Epoch 8 - avg_train_loss: 0.0111                     avg_val_loss: 0.0076  time: 45s
+[2021-04-23 16:16:43,700][__main__][INFO] - Epoch: 8 - Val_loss: 0.007637397265609573 - Dice: 0.9386942982673645
+[2021-04-23 16:16:43,701][__main__][INFO] - Number of bad epochs 7
+[2021-04-23 16:17:28,754][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:17:28,755][__main__][INFO] - Epoch 9 - avg_train_loss: 0.0111                     avg_val_loss: 0.0080  time: 45s
+[2021-04-23 16:17:28,755][__main__][INFO] - Epoch: 9 - Val_loss: 0.008000802833075617 - Dice: 0.9369311928749084
+[2021-04-23 16:17:28,755][__main__][INFO] - Number of bad epochs 8
+[2021-04-23 16:18:13,113][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:18:13,113][__main__][INFO] - Epoch 10 - avg_train_loss: 0.0110                     avg_val_loss: 0.0080  time: 44s
+[2021-04-23 16:18:13,114][__main__][INFO] - Epoch: 10 - Val_loss: 0.008028468328948114 - Dice: 0.9371727705001831
+[2021-04-23 16:18:13,114][__main__][INFO] - Number of bad epochs 9
+[2021-04-23 16:18:56,961][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:18:56,962][__main__][INFO] - Epoch 11 - avg_train_loss: 0.0107                     avg_val_loss: 0.0083  time: 44s
+[2021-04-23 16:18:56,962][__main__][INFO] - Epoch: 11 - Val_loss: 0.008290486245909157 - Dice: 0.9377660751342773
+[2021-04-23 16:18:56,962][__main__][INFO] - Number of bad epochs 10
+[2021-04-23 16:19:41,855][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:19:41,856][__main__][INFO] - Epoch 12 - avg_train_loss: 0.0109                     avg_val_loss: 0.0085  time: 45s
+[2021-04-23 16:19:41,856][__main__][INFO] - Epoch: 12 - Val_loss: 0.008546718487552568 - Dice: 0.9371155500411987
+[2021-04-23 16:19:41,856][__main__][INFO] - Number of bad epochs 11
+[2021-04-23 16:19:41,856][__main__][INFO] - Stop the training, since the score has not improved for 10 epochs!
+[2021-04-23 16:19:41,960][__main__][INFO] - AFTER TRAINING: Epoch 1: Best Dice score: 0.9457
+[2021-04-23 16:19:44,951][__main__][INFO] - ----------------------------------------------------------------------------------------------------
+[2021-04-23 16:19:44,951][__main__][INFO] - Start training FOLD 2...
+[2021-04-23 16:20:29,048][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:20:29,049][__main__][INFO] - Epoch 1 - avg_train_loss: 0.0103                     avg_val_loss: 0.0115  time: 44s
+[2021-04-23 16:20:29,049][__main__][INFO] - Epoch: 1 - Val_loss: 0.011469242161489375 - Dice: 0.9401299953460693
+[2021-04-23 16:20:29,049][__main__][INFO] - Epoch 1 - Save Best Dice: 0.9401
+[2021-04-23 16:20:29,153][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 16:21:12,543][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:21:12,543][__main__][INFO] - Epoch 2 - avg_train_loss: 0.0100                     avg_val_loss: 0.0107  time: 43s
+[2021-04-23 16:21:12,543][__main__][INFO] - Epoch: 2 - Val_loss: 0.010704255612169119 - Dice: 0.9427708387374878
+[2021-04-23 16:21:12,543][__main__][INFO] - Epoch 2 - Save Best Dice: 0.9428
+[2021-04-23 16:21:12,691][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 16:21:56,600][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:21:56,600][__main__][INFO] - Epoch 3 - avg_train_loss: 0.0098                     avg_val_loss: 0.0121  time: 44s
+[2021-04-23 16:21:56,601][__main__][INFO] - Epoch: 3 - Val_loss: 0.012055310457006738 - Dice: 0.9382932186126709
+[2021-04-23 16:21:56,601][__main__][INFO] - Number of bad epochs 1
+[2021-04-23 16:22:40,901][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:22:40,902][__main__][INFO] - Epoch 4 - avg_train_loss: 0.0097                     avg_val_loss: 0.0112  time: 44s
+[2021-04-23 16:22:40,902][__main__][INFO] - Epoch: 4 - Val_loss: 0.011159225631804848 - Dice: 0.9412996768951416
+[2021-04-23 16:22:40,902][__main__][INFO] - Number of bad epochs 2
+[2021-04-23 16:23:24,652][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:23:24,652][__main__][INFO] - Epoch 5 - avg_train_loss: 0.0100                     avg_val_loss: 0.0111  time: 44s
+[2021-04-23 16:23:24,652][__main__][INFO] - Epoch: 5 - Val_loss: 0.01106403950166039 - Dice: 0.9419134855270386
+[2021-04-23 16:23:24,653][__main__][INFO] - Number of bad epochs 3
+[2021-04-23 16:24:07,931][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:24:07,932][__main__][INFO] - Epoch 6 - avg_train_loss: 0.0095                     avg_val_loss: 0.0113  time: 43s
+[2021-04-23 16:24:07,932][__main__][INFO] - Epoch: 6 - Val_loss: 0.011333454391978845 - Dice: 0.9403331875801086
+[2021-04-23 16:24:07,932][__main__][INFO] - Number of bad epochs 4
+[2021-04-23 16:24:51,838][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:24:51,838][__main__][INFO] - Epoch 7 - avg_train_loss: 0.0093                     avg_val_loss: 0.0110  time: 44s
+[2021-04-23 16:24:51,838][__main__][INFO] - Epoch: 7 - Val_loss: 0.011016041006375434 - Dice: 0.9424236416816711
+[2021-04-23 16:24:51,839][__main__][INFO] - Number of bad epochs 5
+[2021-04-23 16:25:35,265][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:25:35,266][__main__][INFO] - Epoch 8 - avg_train_loss: 0.0095                     avg_val_loss: 0.0123  time: 43s
+[2021-04-23 16:25:35,266][__main__][INFO] - Epoch: 8 - Val_loss: 0.012285725593379268 - Dice: 0.9389856457710266
+[2021-04-23 16:25:35,266][__main__][INFO] - Number of bad epochs 6
+[2021-04-23 16:26:19,212][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:26:19,213][__main__][INFO] - Epoch 9 - avg_train_loss: 0.0092                     avg_val_loss: 0.0118  time: 44s
+[2021-04-23 16:26:19,213][__main__][INFO] - Epoch: 9 - Val_loss: 0.011821039623235127 - Dice: 0.9393285512924194
+[2021-04-23 16:26:19,213][__main__][INFO] - Number of bad epochs 7
+[2021-04-23 16:27:03,251][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:27:03,252][__main__][INFO] - Epoch 10 - avg_train_loss: 0.0102                     avg_val_loss: 0.0127  time: 44s
+[2021-04-23 16:27:03,252][__main__][INFO] - Epoch: 10 - Val_loss: 0.012705443625941353 - Dice: 0.9335676431655884
+[2021-04-23 16:27:03,252][__main__][INFO] - Number of bad epochs 8
+[2021-04-23 16:27:46,225][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:27:46,226][__main__][INFO] - Epoch 11 - avg_train_loss: 0.0097                     avg_val_loss: 0.0115  time: 43s
+[2021-04-23 16:27:46,226][__main__][INFO] - Epoch: 11 - Val_loss: 0.01153413442233585 - Dice: 0.9370374083518982
+[2021-04-23 16:27:46,226][__main__][INFO] - Number of bad epochs 9
+[2021-04-23 16:28:29,908][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:28:29,908][__main__][INFO] - Epoch 12 - avg_train_loss: 0.0089                     avg_val_loss: 0.0117  time: 44s
+[2021-04-23 16:28:29,909][__main__][INFO] - Epoch: 12 - Val_loss: 0.011724932590585768 - Dice: 0.9372005462646484
+[2021-04-23 16:28:29,909][__main__][INFO] - Number of bad epochs 10
+[2021-04-23 16:29:12,465][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:29:12,465][__main__][INFO] - Epoch 13 - avg_train_loss: 0.0088                     avg_val_loss: 0.0120  time: 43s
+[2021-04-23 16:29:12,465][__main__][INFO] - Epoch: 13 - Val_loss: 0.011991153776064623 - Dice: 0.9376608729362488
+[2021-04-23 16:29:12,465][__main__][INFO] - Number of bad epochs 11
+[2021-04-23 16:29:12,466][__main__][INFO] - Stop the training, since the score has not improved for 10 epochs!
+[2021-04-23 16:29:12,570][__main__][INFO] - AFTER TRAINING: Epoch 2: Best Dice score: 0.9428
+[2021-04-23 16:29:15,642][__main__][INFO] - ----------------------------------------------------------------------------------------------------
+[2021-04-23 16:29:15,642][__main__][INFO] - Start training FOLD 3...
+[2021-04-23 16:30:01,263][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:30:01,263][__main__][INFO] - Epoch 1 - avg_train_loss: 0.0113                     avg_val_loss: 0.0061  time: 46s
+[2021-04-23 16:30:01,264][__main__][INFO] - Epoch: 1 - Val_loss: 0.006090091192421654 - Dice: 0.947675347328186
+[2021-04-23 16:30:01,264][__main__][INFO] - Epoch 1 - Save Best Dice: 0.9477
+[2021-04-23 16:30:01,370][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 16:30:46,256][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:30:46,256][__main__][INFO] - Epoch 2 - avg_train_loss: 0.0114                     avg_val_loss: 0.0061  time: 45s
+[2021-04-23 16:30:46,257][__main__][INFO] - Epoch: 2 - Val_loss: 0.006136548584595554 - Dice: 0.94609534740448
+[2021-04-23 16:30:46,257][__main__][INFO] - Number of bad epochs 1
+[2021-04-23 16:31:31,608][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:31:31,608][__main__][INFO] - Epoch 3 - avg_train_loss: 0.0110                     avg_val_loss: 0.0063  time: 45s
+[2021-04-23 16:31:31,608][__main__][INFO] - Epoch: 3 - Val_loss: 0.00629333076697099 - Dice: 0.9470881223678589
+[2021-04-23 16:31:31,609][__main__][INFO] - Number of bad epochs 2
+[2021-04-23 16:32:17,568][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:32:17,569][__main__][INFO] - Epoch 4 - avg_train_loss: 0.0110                     avg_val_loss: 0.0064  time: 46s
+[2021-04-23 16:32:17,569][__main__][INFO] - Epoch: 4 - Val_loss: 0.006361325411848773 - Dice: 0.9445764422416687
+[2021-04-23 16:32:17,569][__main__][INFO] - Number of bad epochs 3
+[2021-04-23 16:33:03,692][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:33:03,693][__main__][INFO] - Epoch 5 - avg_train_loss: 0.0105                     avg_val_loss: 0.0058  time: 46s
+[2021-04-23 16:33:03,693][__main__][INFO] - Epoch: 5 - Val_loss: 0.005769063594715955 - Dice: 0.9505358934402466
+[2021-04-23 16:33:03,693][__main__][INFO] - Epoch 5 - Save Best Dice: 0.9505
+[2021-04-23 16:33:03,846][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 16:33:48,952][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:33:48,953][__main__][INFO] - Epoch 6 - avg_train_loss: 0.0107                     avg_val_loss: 0.0063  time: 45s
+[2021-04-23 16:33:48,953][__main__][INFO] - Epoch: 6 - Val_loss: 0.006288110706005287 - Dice: 0.9451643824577332
+[2021-04-23 16:33:48,953][__main__][INFO] - Number of bad epochs 1
+[2021-04-23 16:34:35,177][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:34:35,177][__main__][INFO] - Epoch 7 - avg_train_loss: 0.0104                     avg_val_loss: 0.0063  time: 46s
+[2021-04-23 16:34:35,177][__main__][INFO] - Epoch: 7 - Val_loss: 0.006268282047681461 - Dice: 0.9447964429855347
+[2021-04-23 16:34:35,177][__main__][INFO] - Number of bad epochs 2
+[2021-04-23 16:35:20,245][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:35:20,246][__main__][INFO] - Epoch 8 - avg_train_loss: 0.0105                     avg_val_loss: 0.0063  time: 45s
+[2021-04-23 16:35:20,246][__main__][INFO] - Epoch: 8 - Val_loss: 0.006252124892163633 - Dice: 0.9459425806999207
+[2021-04-23 16:35:20,246][__main__][INFO] - Number of bad epochs 3
+[2021-04-23 16:36:04,567][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:36:04,568][__main__][INFO] - Epoch 9 - avg_train_loss: 0.0103                     avg_val_loss: 0.0063  time: 44s
+[2021-04-23 16:36:04,568][__main__][INFO] - Epoch: 9 - Val_loss: 0.00634244774951457 - Dice: 0.946287989616394
+[2021-04-23 16:36:04,568][__main__][INFO] - Number of bad epochs 4
+[2021-04-23 16:36:51,545][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:36:51,546][__main__][INFO] - Epoch 10 - avg_train_loss: 0.0103                     avg_val_loss: 0.0063  time: 47s
+[2021-04-23 16:36:51,546][__main__][INFO] - Epoch: 10 - Val_loss: 0.0063278062172035816 - Dice: 0.9449578523635864
+[2021-04-23 16:36:51,547][__main__][INFO] - Number of bad epochs 5
+[2021-04-23 16:37:36,771][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:37:36,771][__main__][INFO] - Epoch 11 - avg_train_loss: 0.0103                     avg_val_loss: 0.0067  time: 45s
+[2021-04-23 16:37:36,771][__main__][INFO] - Epoch: 11 - Val_loss: 0.006690053704985626 - Dice: 0.941365659236908
+[2021-04-23 16:37:36,772][__main__][INFO] - Number of bad epochs 6
+[2021-04-23 16:38:21,964][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:38:21,964][__main__][INFO] - Epoch 12 - avg_train_loss: 0.0104                     avg_val_loss: 0.0066  time: 45s
+[2021-04-23 16:38:21,965][__main__][INFO] - Epoch: 12 - Val_loss: 0.0065945954601014005 - Dice: 0.9432082176208496
+[2021-04-23 16:38:21,965][__main__][INFO] - Number of bad epochs 7
+[2021-04-23 16:39:07,879][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:39:07,880][__main__][INFO] - Epoch 13 - avg_train_loss: 0.0106                     avg_val_loss: 0.0073  time: 46s
+[2021-04-23 16:39:07,880][__main__][INFO] - Epoch: 13 - Val_loss: 0.007265227890166634 - Dice: 0.9365856051445007
+[2021-04-23 16:39:07,880][__main__][INFO] - Number of bad epochs 8
+[2021-04-23 16:39:52,955][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:39:52,956][__main__][INFO] - Epoch 14 - avg_train_loss: 0.0101                     avg_val_loss: 0.0068  time: 45s
+[2021-04-23 16:39:52,956][__main__][INFO] - Epoch: 14 - Val_loss: 0.00684006154917164 - Dice: 0.9402660131454468
+[2021-04-23 16:39:52,956][__main__][INFO] - Number of bad epochs 9
+[2021-04-23 16:40:39,387][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:40:39,387][__main__][INFO] - Epoch 15 - avg_train_loss: 0.0100                     avg_val_loss: 0.0066  time: 46s
+[2021-04-23 16:40:39,387][__main__][INFO] - Epoch: 15 - Val_loss: 0.0066452287679575305 - Dice: 0.9402056932449341
+[2021-04-23 16:40:39,388][__main__][INFO] - Number of bad epochs 10
+[2021-04-23 16:41:24,746][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:41:24,747][__main__][INFO] - Epoch 16 - avg_train_loss: 0.0099                     avg_val_loss: 0.0065  time: 45s
+[2021-04-23 16:41:24,747][__main__][INFO] - Epoch: 16 - Val_loss: 0.006496891445436922 - Dice: 0.9429715275764465
+[2021-04-23 16:41:24,747][__main__][INFO] - Number of bad epochs 11
+[2021-04-23 16:41:24,748][__main__][INFO] - Stop the training, since the score has not improved for 10 epochs!
+[2021-04-23 16:41:24,851][__main__][INFO] - AFTER TRAINING: Epoch 5: Best Dice score: 0.9505
+[2021-04-23 16:41:27,729][__main__][INFO] - ----------------------------------------------------------------------------------------------------
+[2021-04-23 16:41:27,729][__main__][INFO] - Start training FOLD 4...
+[2021-04-23 16:42:14,701][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:42:14,702][__main__][INFO] - Epoch 1 - avg_train_loss: 0.0102                     avg_val_loss: 0.0094  time: 47s
+[2021-04-23 16:42:14,702][__main__][INFO] - Epoch: 1 - Val_loss: 0.009378329788354976 - Dice: 0.947669267654419
+[2021-04-23 16:42:14,702][__main__][INFO] - Epoch 1 - Save Best Dice: 0.9477
+[2021-04-23 16:42:14,808][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 16:43:02,993][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:43:02,994][__main__][INFO] - Epoch 2 - avg_train_loss: 0.0101                     avg_val_loss: 0.0086  time: 48s
+[2021-04-23 16:43:02,994][__main__][INFO] - Epoch: 2 - Val_loss: 0.00858065768687571 - Dice: 0.9507908225059509
+[2021-04-23 16:43:02,994][__main__][INFO] - Epoch 2 - Save Best Dice: 0.9508
+[2021-04-23 16:43:03,142][__main__][INFO] - Number of bad epochs 0
+[2021-04-23 16:43:49,669][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:43:49,669][__main__][INFO] - Epoch 3 - avg_train_loss: 0.0096                     avg_val_loss: 0.0091  time: 47s
+[2021-04-23 16:43:49,669][__main__][INFO] - Epoch: 3 - Val_loss: 0.009149087114242192 - Dice: 0.9483239054679871
+[2021-04-23 16:43:49,670][__main__][INFO] - Number of bad epochs 1
+[2021-04-23 16:44:36,639][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:44:36,639][__main__][INFO] - Epoch 4 - avg_train_loss: 0.0101                     avg_val_loss: 0.0092  time: 47s
+[2021-04-23 16:44:36,640][__main__][INFO] - Epoch: 4 - Val_loss: 0.009155297234097373 - Dice: 0.9485036730766296
+[2021-04-23 16:44:36,640][__main__][INFO] - Number of bad epochs 2
+[2021-04-23 16:45:24,022][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:45:24,023][__main__][INFO] - Epoch 5 - avg_train_loss: 0.0100                     avg_val_loss: 0.0090  time: 47s
+[2021-04-23 16:45:24,023][__main__][INFO] - Epoch: 5 - Val_loss: 0.00897190767714632 - Dice: 0.9481387138366699
+[2021-04-23 16:45:24,023][__main__][INFO] - Number of bad epochs 3
+[2021-04-23 16:46:10,960][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:46:10,960][__main__][INFO] - Epoch 6 - avg_train_loss: 0.0095                     avg_val_loss: 0.0095  time: 47s
+[2021-04-23 16:46:10,960][__main__][INFO] - Epoch: 6 - Val_loss: 0.00947107257164806 - Dice: 0.9467323422431946
+[2021-04-23 16:46:10,961][__main__][INFO] - Number of bad epochs 4
+[2021-04-23 16:46:58,367][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:46:58,368][__main__][INFO] - Epoch 7 - avg_train_loss: 0.0095                     avg_val_loss: 0.0094  time: 47s
+[2021-04-23 16:46:58,368][__main__][INFO] - Epoch: 7 - Val_loss: 0.009374632151954086 - Dice: 0.9479629397392273
+[2021-04-23 16:46:58,368][__main__][INFO] - Number of bad epochs 5
+[2021-04-23 16:47:46,344][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:47:46,345][__main__][INFO] - Epoch 8 - avg_train_loss: 0.0095                     avg_val_loss: 0.0092  time: 48s
+[2021-04-23 16:47:46,345][__main__][INFO] - Epoch: 8 - Val_loss: 0.009241265323117514 - Dice: 0.947700560092926
+[2021-04-23 16:47:46,345][__main__][INFO] - Number of bad epochs 6
+[2021-04-23 16:48:33,776][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:48:33,777][__main__][INFO] - Epoch 9 - avg_train_loss: 0.0094                     avg_val_loss: 0.0088  time: 47s
+[2021-04-23 16:48:33,777][__main__][INFO] - Epoch: 9 - Val_loss: 0.008846716200961873 - Dice: 0.9476543664932251
+[2021-04-23 16:48:33,777][__main__][INFO] - Number of bad epochs 7
+[2021-04-23 16:49:21,836][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:49:21,836][__main__][INFO] - Epoch 10 - avg_train_loss: 0.0094                     avg_val_loss: 0.0097  time: 48s
+[2021-04-23 16:49:21,836][__main__][INFO] - Epoch: 10 - Val_loss: 0.009727703642413437 - Dice: 0.9449781775474548
+[2021-04-23 16:49:21,837][__main__][INFO] - Number of bad epochs 8
+[2021-04-23 16:50:08,983][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:50:08,983][__main__][INFO] - Epoch 11 - avg_train_loss: 0.0092                     avg_val_loss: 0.0092  time: 47s
+[2021-04-23 16:50:08,983][__main__][INFO] - Epoch: 11 - Val_loss: 0.009165875110311021 - Dice: 0.9467500448226929
+[2021-04-23 16:50:08,984][__main__][INFO] - Number of bad epochs 9
+[2021-04-23 16:50:56,067][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:50:56,068][__main__][INFO] - Epoch 12 - avg_train_loss: 0.0097                     avg_val_loss: 0.0106  time: 47s
+[2021-04-23 16:50:56,068][__main__][INFO] - Epoch: 12 - Val_loss: 0.010563161470738713 - Dice: 0.9415663480758667
+[2021-04-23 16:50:56,068][__main__][INFO] - Number of bad epochs 10
+[2021-04-23 16:51:43,983][__main__][INFO] - Current learning rate: 0.0001
+[2021-04-23 16:51:43,984][__main__][INFO] - Epoch 13 - avg_train_loss: 0.0095                     avg_val_loss: 0.0099  time: 48s
+[2021-04-23 16:51:43,984][__main__][INFO] - Epoch: 13 - Val_loss: 0.009872511227983645 - Dice: 0.9448808431625366
+[2021-04-23 16:51:43,984][__main__][INFO] - Number of bad epochs 11
+[2021-04-23 16:51:43,984][__main__][INFO] - Stop the training, since the score has not improved for 10 epochs!
+[2021-04-23 16:51:44,089][__main__][INFO] - AFTER TRAINING: Epoch 2: Best Dice score: 0.9508

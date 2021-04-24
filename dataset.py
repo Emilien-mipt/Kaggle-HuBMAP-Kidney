@@ -1,58 +1,43 @@
 import os
 
 import cv2
+import numpy as np
+import pandas as pd
+import torch
+from sklearn.model_selection import KFold
 from torch.utils.data import Dataset
 
-from augmentations import (
-    base_transform,
-    strong_transform,
-    val_transform,
-    weak_transform,
-)
-from config import CFG
+
+def img2tensor(img, dtype=np.float32):
+    if img.ndim == 2:
+        img = np.expand_dims(img, 2)
+    img = np.transpose(img, (2, 0, 1))
+    return torch.from_numpy(img.astype(dtype, copy=False))
 
 
 class HuBMAPDataset(Dataset):
-    def __init__(self, df, mode="train", augment="weak", transform=True):
-        ids = df.id.values
-        if CFG.data == 512:
-            self.fnames = [fname for fname in os.listdir("./data/hubmap-512x512/train") if fname.split("_")[0] in ids]
-        elif CFG.data == 256:
-            self.fnames = [fname for fname in os.listdir("./data/hubmap-256x256/train") if fname.split("_")[0] in ids]
-        self.mode = mode
-        self.augment = augment
-        self.transform = transform
+    def __init__(self, data_path, mask_path, label_path, fold, mean, std, n_splits, seed, train=True, tfms=None):
+        self.data_path = data_path
+        self.mask_path = mask_path
+        self.labels = label_path
+        ids = pd.read_csv(self.labels).id.values
+        kf = KFold(n_splits=n_splits, random_state=seed, shuffle=True)
+        ids = set(ids[list(kf.split(ids))[fold][0 if train else 1]])
+        print(ids)
+        self.fnames = [fname for fname in os.listdir(self.data_path) if fname.split("_")[0] in ids]
+        self.train = train
+        self.tfms = tfms
+        self.mean = mean
+        self.std = std
 
     def __len__(self):
         return len(self.fnames)
 
     def __getitem__(self, idx):
         fname = self.fnames[idx]
-        if CFG.data == 512:
-            img = cv2.cvtColor(cv2.imread(os.path.join("./data/hubmap-512x512/train", fname)), cv2.COLOR_BGR2RGB)
-            mask = cv2.imread(os.path.join("../input/hubmap-512x512/masks", fname), cv2.IMREAD_GRAYSCALE)
-        elif CFG.data == 256:
-            img = cv2.cvtColor(cv2.imread(os.path.join("./data/hubmap-256x256/train", fname)), cv2.COLOR_BGR2RGB)
-            mask = cv2.imread(os.path.join("./data/hubmap-256x256/masks", fname), cv2.IMREAD_GRAYSCALE)
-
-        if self.mode == "train":
-            if self.transform is True:
-                if self.augment == "base":
-                    augmented = base_transform(image=img, mask=mask)
-                    img, mask = augmented["image"], augmented["mask"]
-                elif self.augment == "weak":
-                    augmented = weak_transform(image=img, mask=mask)
-                    img, mask = augmented["image"], augmented["mask"]
-                elif self.augment == "strong":
-                    augmented = strong_transform(image=img, mask=mask)
-                    img, mask = augmented["image"], augmented["mask"]
-
-        elif self.mode == "val":
-            transformed = val_transform(image=img, mask=mask)
-            img, mask = transformed["image"], transformed["mask"]
-
-        img = img.type("torch.FloatTensor")
-        img = img / 255
-        mask = mask.type("torch.FloatTensor")
-
-        return img, mask
+        img = cv2.cvtColor(cv2.imread(os.path.join(self.data_path, fname)), cv2.COLOR_BGR2RGB)
+        mask = cv2.imread(os.path.join(self.mask_path, fname), cv2.IMREAD_GRAYSCALE)
+        if self.tfms is not None:
+            augmented = self.tfms(image=img, mask=mask)
+            img, mask = augmented["image"], augmented["mask"]
+        return img2tensor((img / 255.0 - self.mean) / self.std), img2tensor(mask)

@@ -66,11 +66,27 @@ def timeSince(since, percent):
     return "{} (remain {})".format(asMinutes(s), asMinutes(rs))
 
 
-def plot(dataset, n):
+def save_model(model, epoch, trainloss, valloss, metric, name):
+    """Saves PyTorch model."""
+    torch.save(
+        {
+            "model": model.state_dict(),
+            "epoch": epoch,
+            "train_loss": trainloss,
+            "val_loss": valloss,
+            "metric_loss": metric,
+        },
+        os.path.join("weights", name),
+    )
+
+
+def save_plot(train_dataset, n_pics, mean, std, name):
     plt.figure(figsize=(15, 10))
-    for i in range(n):
-        image, mask = dataset[i]
-        plt.subplot(3, 4, 2 * i + 1)
-        plt.imshow(np.transpose((image), (1, 2, 0)))
-        plt.subplot(3, 4, 2 * i + 2)
-        plt.imshow(mask)
+    for i in range(n_pics):
+        image, mask = train_dataset[i]
+        image = ((image.permute(1, 2, 0) * std + mean) * 255.0).numpy().astype(np.uint8)
+        plt.subplot(math.ceil(n_pics / 2), 4, 2 * i + 1)
+        plt.imshow(image)
+        plt.subplot(math.ceil(n_pics / 2), 4, 2 * i + 2)
+        plt.imshow(mask.squeeze().numpy())
+        plt.savefig(name)

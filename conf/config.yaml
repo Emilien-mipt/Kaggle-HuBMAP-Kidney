@@ -1,0 +1,11 @@
+defaults:
+  - dataset: hubmap-256
+  - train_params: default_train
+  - model: Unet
+  - optimizer: Adam
+  - scheduler: None
+  - hydra/job_logging: colorlog
+  - hydra/hydra_logging: colorlog
+
+criterion: BCELoss
+labels: ./data/train.csv
