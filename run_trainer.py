@@ -47,11 +47,6 @@ def run_trainer(cfg):
     print(dir_df.shape)
 
     n_splits = cfg.train_params.n_splits
-
-    gkf = GroupKFold(n_splits)
-    dir_df["Folds"] = 0
-    for fold, (tr_idx, val_idx) in enumerate(gkf.split(dir_df, groups=dir_df[dir_df.columns[0]].values)):
-        dir_df.loc[val_idx, "Folds"] = fold
     LOGGER.info(f"Choose cross validation strategy with {n_splits} folds")
 
     if cfg.model.name == "Unet":

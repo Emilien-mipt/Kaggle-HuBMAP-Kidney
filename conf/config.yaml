@@ -1,5 +1,5 @@
 defaults:
-  - dataset: hubmap-1024
+  - dataset: hubmap-256
   - train_params: default_train
   - model: Unet
   - optimizer: Adam
