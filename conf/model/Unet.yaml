@@ -1,4 +1,4 @@
 # @package _group_
 name: Unet
-encoder: timm-efficientnet-b4
+encoder: se_resnext50_32x4d
 n_classes: 1

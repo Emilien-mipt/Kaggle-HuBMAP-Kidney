@@ -1,0 +1,37 @@
+criterion: BCELoss
+labels: ./data/train.csv
+dataset:
+  name: hubmap-512x512
+  tile_size: 512
+  path: ./data/hubmap-512x512/train/
+  mask_path: ./data/hubmap-512x512/masks/
+  mean:
+  - 0.63759809
+  - 0.4716141
+  - 0.68231112
+  std:
+  - 0.12116863
+  - 0.1669194
+  - 0.09468088
+train_params:
+  seed: 2021
+  gpu_id: 0
+  mixed_prec: true
+  epochs: 100
+  batch_size: 32
+  num_workers: 8
+  print_freq: 10
+  early_stop: 10
+  aug_type: base
+  n_splits: 5
+model:
+  name: Unet
+  encoder: se_resnext50_32x4d
+  n_classes: 1
+optimizer:
+  type: Adam
+  lr: 0.0001
+  weight_decay: 0.0001
+  eps: 0.0001
+scheduler:
+  type: None

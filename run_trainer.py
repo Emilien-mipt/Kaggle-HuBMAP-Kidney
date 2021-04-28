@@ -91,6 +91,8 @@ def run_trainer(cfg):
     mean = np.array(cfg.dataset.mean)
     std = np.array(cfg.dataset.std)
 
+    fold_scores = np.zeros(shape=(n_splits, 1))
+
     # Start training
     for fold in range(n_splits):
         # Create dirs for corresponding folds
@@ -169,6 +171,7 @@ def run_trainer(cfg):
             # Update best score
             if val_dice_score >= best_dice_score:
                 best_dice_score = val_dice_score
+                fold_scores[fold, 0] = best_dice_score
                 LOGGER.info(f"Epoch {epoch + 1} - Save Best Dice: {best_dice_score:.4f}")
                 save_model(
                     model,
@@ -209,8 +212,11 @@ def run_trainer(cfg):
                     val_dice_score,
                     os.path.join(f"fold-{fold}", f"fold-{fold}_final.pt"),
                 )
-        LOGGER.info(f"AFTER TRAINING: Epoch {best_epoch}: Best Dice score: {best_dice_score:.4f}")
+        LOGGER.info(f"AFTER TRAINING FOLD {fold}: Epoch {best_epoch}: Best Dice score: {best_dice_score:.4f}")
         tb.close()
+    LOGGER.info(f"Array with best scores for corresponding folds: {fold_scores}")
+    avg_score = np.mean(fold_scores)
+    LOGGER.info(f"Average score: {avg_score:.4f}")
 
 
 @hydra.main(config_path="conf", config_name="config")

@@ -5,8 +5,8 @@ import os
 
 import cv2
 
-PATH = "./data/hubmap-512x512/train"
-SIZE = 512
+PATH = "./data/hubmap-1024x1024/train"
+SIZE = 1024
 
 
 def get_mean_std_opencv(path, size):
