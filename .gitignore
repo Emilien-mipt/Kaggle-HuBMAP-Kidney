@@ -1,2 +1,14 @@
 # Pycharm cache
 .idea/
+
+# data
+/data
+
+# pycache
+__pycache__/
+
+# mypy
+.mypy_cache/
+
+# weights
+weights/

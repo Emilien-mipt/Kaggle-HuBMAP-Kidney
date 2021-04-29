@@ -1,0 +1,7 @@
+# @package _group_
+name: hubmap-1024x1024
+tile_size: 1024
+path: ./data/hubmap-1024x1024/train/
+mask_path: ./data/hubmap-1024x1024/masks/
+mean: [0.63711163, 0.47114376, 0.68181989]
+std: [0.12442521, 0.16949641, 0.09842345]

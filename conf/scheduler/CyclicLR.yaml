@@ -1,0 +1,10 @@
+# @package _group_
+type: CyclicLR
+base_lr: ???
+max_lr: ???
+step_size_up: 2000
+mode: 'triangular'
+gamma: 1.0
+scale_mode: 'cycle'
+base_momentum: 0.8
+max_momentum: 0.9

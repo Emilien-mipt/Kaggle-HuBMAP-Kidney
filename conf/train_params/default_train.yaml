@@ -1,0 +1,11 @@
+# @package _group_
+seed: 2021
+gpu_id: 0
+mixed_prec: True
+epochs: 100
+batch_size: 64
+num_workers: 8
+print_freq: 10
+early_stop: 10
+aug_type: base
+n_splits: 5

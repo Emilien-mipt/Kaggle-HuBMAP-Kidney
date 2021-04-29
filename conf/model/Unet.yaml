@@ -1,0 +1,4 @@
+# @package _group_
+name: Unet
+encoder: se_resnext50_32x4d
+n_classes: 1
