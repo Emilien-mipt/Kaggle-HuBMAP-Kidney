@@ -8,6 +8,7 @@ import pandas as pd
 import segmentation_models_pytorch as smp
 import torch
 from omegaconf import DictConfig
+from pytorch_toolbelt.utils import count_parameters
 from sklearn.model_selection import GroupKFold
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
@@ -60,6 +61,8 @@ def run_trainer(cfg):
     LOGGER.info(f"Device: {cfg.train_params.gpu_id}")
 
     model = HuBMAP(base_model).to(device)
+
+    LOGGER.info(f"Number of parameters in the model: {count_parameters(model)}")
 
     # optimizer
     optimizer = get_optimizer(cfg, model)
