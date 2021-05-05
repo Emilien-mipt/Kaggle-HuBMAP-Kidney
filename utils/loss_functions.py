@@ -1,3 +1,4 @@
+import torch
 import torch.nn as nn
 from torch.nn import functional as F
 
@@ -20,25 +21,23 @@ def get_dice_coeff(pred, targs):
     return 2.0 * (pred * targs).sum() / ((pred + targs).sum() + 1.0)
 
 
-class DiceBCELoss(nn.Module):
-    def __init__(self, weight=None, size_average=True):
-        super().__init__()
+class DiceBCELoss:
+    def __init__(self, dice_weight=1):
+        self.nll_loss = nn.BCEWithLogitsLoss()
+        self.dice_weight = dice_weight
 
-    def forward(self, inputs, targets, smooth=1):
+    def __call__(self, outputs, targets):
+        loss = self.nll_loss(outputs, targets)
+        if self.dice_weight:
+            eps = 1e-15
+            dice_target = (targets == 1).float()
+            dice_output = outputs
+            intersection = (dice_output * dice_target).sum()
+            union = dice_output.sum() + dice_target.sum() + eps
 
-        # comment out if your model contains a sigmoid or equivalent activation layer
-        inputs = F.sigmoid(inputs)
+            loss -= torch.log(2 * intersection / union)
 
-        # flatten label and prediction tensors
-        inputs = inputs.view(-1)
-        targets = targets.view(-1)
-
-        intersection = (inputs * targets).sum()
-        dice_loss = 1 - (2.0 * intersection + smooth) / (inputs.sum() + targets.sum() + smooth)
-        BCE = F.binary_cross_entropy(inputs, targets, reduction="mean")
-        Dice_BCE = BCE + dice_loss
-
-        return Dice_BCE
+        return loss
 
 
 class Hausdorff_loss(nn.Module):

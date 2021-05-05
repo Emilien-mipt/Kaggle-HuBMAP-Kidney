@@ -13,7 +13,7 @@ def get_loss(cfg):
         criterion = JaccardLoss(mode="binary")
     elif cfg.criterion == "Hausdorff":
         criterion = Hausdorff_loss()
-    elif cfg.criterion == "Lovasz":
+    elif cfg.criterion == "LovaszLoss":
         criterion = LovaszLoss()
     elif cfg.criterion == "BCELoss":
         criterion = nn.BCEWithLogitsLoss()
