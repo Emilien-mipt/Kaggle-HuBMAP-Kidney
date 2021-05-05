@@ -1,3 +1,4 @@
+import torch
 import torch.nn as nn
 from torch.nn import functional as F
 
@@ -20,46 +21,23 @@ def get_dice_coeff(pred, targs):
     return 2.0 * (pred * targs).sum() / ((pred + targs).sum() + 1.0)
 
 
-class DiceLoss(nn.Module):
-    def __init__(self, weight=None, size_average=True):
-        super().__init__()
+class DiceBCELoss:
+    def __init__(self, dice_weight=1):
+        self.nll_loss = nn.BCEWithLogitsLoss()
+        self.dice_weight = dice_weight
 
-    def forward(self, inputs, targets, smooth=1):
-        # comment out if your model contains a sigmoid or equivalent activation layer
-        inputs = F.sigmoid(inputs)
+    def __call__(self, outputs, targets):
+        loss = self.nll_loss(outputs, targets)
+        if self.dice_weight:
+            eps = 1e-15
+            dice_target = (targets == 1).float()
+            dice_output = outputs
+            intersection = (dice_output * dice_target).sum()
+            union = dice_output.sum() + dice_target.sum() + eps
 
-        # flatten label and prediction tensors
-        inputs = inputs.view(-1)
-        targets = targets.view(-1)
+            loss -= torch.log(2 * intersection / union)
 
-        intersection = (inputs * targets).sum()
-        dice = (2.0 * intersection + smooth) / (inputs.sum() + targets.sum() + smooth)
-
-        return 1 - dice
-
-
-class DiceBCELoss(nn.Module):
-    # Formula Given above.
-    def __init__(self, weight=None, size_average=True):
-        super().__init__()
-
-    def forward(self, inputs, targets, smooth=1):
-        # flatten label and prediction tensors
-        inputs = inputs.view(-1)
-        targets = targets.view(-1)
-
-        # BCE part of the loss
-        BCE = F.binary_cross_entropy_with_logits(inputs, targets, reduction="mean")
-
-        # comment out if your model contains a sigmoid or equivalent activation layer
-        inputs = F.sigmoid(inputs)
-
-        intersection = (inputs * targets).mean()
-        dice_loss = 1 - (2.0 * intersection + smooth) / (inputs.mean() + targets.mean() + smooth)
-
-        Dice_BCE = BCE + (1 - dice_loss)
-
-        return Dice_BCE.mean()
+        return loss
 
 
 class Hausdorff_loss(nn.Module):
@@ -68,11 +46,3 @@ class Hausdorff_loss(nn.Module):
 
     def forward(self, inputs, targets):
         return HausdorffDTLoss()(inputs, targets)
-
-
-class Lovasz_loss(nn.Module):
-    def __init__(self):
-        super().__init__()
-
-    def forward(self, inputs, targets):
-        return LovaszSoftmax()(inputs, targets)

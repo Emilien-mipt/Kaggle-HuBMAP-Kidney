@@ -1,0 +1,37 @@
+criterion: DiceBCELoss
+labels: ./data/train.csv
+dataset:
+  name: hubmap-256x256
+  tile_size: 256
+  path: ./data/hubmap-256x256/train/
+  mask_path: ./data/hubmap-256x256/masks/
+  mean:
+  - 0.65459856
+  - 0.48386562
+  - 0.69428385
+  std:
+  - 0.15167958
+  - 0.23584107
+  - 0.13146145
+train_params:
+  seed: 2021
+  gpu_id: 0
+  mixed_prec: true
+  epochs: 100
+  batch_size: 64
+  num_workers: 8
+  print_freq: 10
+  early_stop: 10
+  aug_type: base
+  n_splits: 5
+model:
+  name: Unet
+  encoder: se_resnext50_32x4d
+  n_classes: 1
+optimizer:
+  type: Adam
+  lr: 0.0001
+  weight_decay: 0.0001
+  eps: 0.0001
+scheduler:
+  type: None

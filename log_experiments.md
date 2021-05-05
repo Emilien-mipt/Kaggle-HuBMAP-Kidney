@@ -52,3 +52,22 @@ Fold 1, 2, 3, 4, 5 = [0.86785412, 0.88530695, 0.91538972, 0.82604915, 0.93004316
 
 Avg score = 0.8849
 Public score = 0.834
+
+## Trying different loss functions
+### Dice loss
+Dice scores for folds:
+
+Fold 1, 2, 3, 4, 5 = [0.93481171, 0.93642789, 0.94222426, 0.94669557, 0.94715351]
+
+Avg score = 0.9415
+Public score = 0.835
+
+### Jaccard loss
+Dice scores for folds:
+
+Fold 1, 2, 3, 4, 5 = [0.93685228, 0.93933076, 0.93893105, 0.9465633, 0.94640851]
+
+Avg score = 0.9416
+Public score = 0.829
+
+### Dice + BCE loss (0.5 and 1 coefficients)

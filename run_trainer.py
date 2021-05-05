@@ -7,7 +7,10 @@ import numpy as np
 import pandas as pd
 import segmentation_models_pytorch as smp
 import torch
+import torch.nn as nn
 from omegaconf import DictConfig
+from pytorch_toolbelt.losses import DiceLoss, JointLoss
+from pytorch_toolbelt.utils import count_parameters
 from sklearn.model_selection import GroupKFold
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
@@ -61,6 +64,8 @@ def run_trainer(cfg):
 
     model = HuBMAP(base_model).to(device)
 
+    LOGGER.info(f"Number of parameters in the model: {count_parameters(model)}")
+
     # optimizer
     optimizer = get_optimizer(cfg, model)
     LOGGER.info(f"Optimizer: {cfg.optimizer.type}")
@@ -71,6 +76,8 @@ def run_trainer(cfg):
 
     criterion = get_loss(cfg)
     LOGGER.info(f"Criterion: {cfg.criterion}")
+    # LOGGER.info("Joint loss with BCE and Dice and coefs 1. and 0.5 correspondingly")
+    # criterion = JointLoss(nn.BCEWithLogitsLoss(), DiceLoss(mode='binary'), 1.0, 0.5)
 
     # Creates a GradScaler once at the beginning of training.
     scaler = torch.cuda.amp.GradScaler()
